@@ -1,5 +1,5 @@
 {
-  "name": "connect-four",
+  "name": "coding_challenge-connect_four",
   "version": "1.0.0",
   "main": "src/index.ts",
   "author": "Giovanni Ravalico <ravalico.giovanni@gmail.com>",
