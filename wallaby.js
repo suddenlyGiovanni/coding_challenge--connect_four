@@ -1,7 +1,6 @@
 module.exports = function(wallaby) {
   return {
     files: [
-      'package.json',
       'tsconfig.json',
       'jest.config.js',
       'src/**/*.ts?(x)',
@@ -17,13 +16,21 @@ module.exports = function(wallaby) {
     },
 
     testFramework: 'jest',
-
-
-
     debug: true,
-
     reportConsoleErrorAsError: true,
-
     lowCoverageThreshold: 80,
+
+    compilers: {
+      '**/*.ts?(x)': wallaby.compilers.typeScript({ module: 'commonjs' }),
+    },
+
+    preprocessors: {
+      '**/*.js?(x)': file =>
+        require('@babel/core').transform(file.content, {
+          sourceMap: true,
+          filename: file.path,
+          presets: [require('babel-preset-jest')],
+        }),
+    },
   }
 }
