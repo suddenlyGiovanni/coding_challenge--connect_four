@@ -10,22 +10,37 @@ export enum Player {
 export type Cell = Readonly<Player> | void
 
 /**
- * A Column is composed of 5 Cells
+ * A Column is composed of 6 Cells
  * it can be represented as a tuple of 6 cells
  * or as an array of cells of length 6
  * mind you, index 0 represents the bottom of the column
  * and index 5 the top of it!
  */
 export type Column = Readonly<
-  | Player[]
-  | [Player]
-  | [Player, Player]
-  | [Player, Player, Player]
-  | [Player, Player, Player, Player]
-  | [Player, Player, Player, Player, Player]
-  | [Player, Player, Player, Player, Player, Player]
+  | Cell[]
+  | [Cell]
+  | [Cell, Cell]
+  | [Cell, Cell, Cell]
+  | [Cell, Cell, Cell, Cell]
+  | [Cell, Cell, Cell, Cell, Cell]
+  | [Cell, Cell, Cell, Cell, Cell, Cell]
 >
-
+/**
+ * A Row is composed of 7 Cells
+ * it can be represented as a tuple of 7 Cells
+ * keep in mind that that index 0 will refer to the most left cell
+ * and the index 6 will refer the most right cell
+ */
+export type Row = Readonly<
+  | Cell[]
+  | [Cell]
+  | [Cell, Cell]
+  | [Cell, Cell, Cell]
+  | [Cell, Cell, Cell, Cell]
+  | [Cell, Cell, Cell, Cell, Cell]
+  | [Cell, Cell, Cell, Cell, Cell, Cell]
+  | [Cell, Cell, Cell, Cell, Cell, Cell, Cell]
+>
 /*
   Board is a grid of 7*6 and can be represented as `two dimensional array`
   ex: const board = [[Player.One], [..], [..], [..], [..], [..], [..] ]
@@ -59,6 +74,12 @@ export type Board = Readonly<
 
 export function makeBoard(): Board {
   return [[], [], [], [], [], [], []]
+}
+
+export function getColumn(
+  board: Board
+): (x: 0 | 1 | 2 | 3 | 4 | 5 | 6) => Column {
+  return x => board[x]
 }
 
 export function getCell(
