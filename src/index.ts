@@ -4,9 +4,10 @@ export enum Player {
 }
 
 /**
- * A Cell can be empty or filled by a Player
+ * A Cell can be empty or filled by a Checker.
+ * The Checker can have to belong to one of the two Players`
  */
-export type Cell = Readonly<Player>
+export type Cell = Readonly<Player> | void
 
 /**
  * A Column is composed of 5 Cells
@@ -25,6 +26,20 @@ export type Column = Readonly<
   | [Player, Player, Player, Player, Player, Player]
 >
 
+/*
+  Board is a grid of 7*6 and can be represented as `two dimensional array`
+  ex: const board = [[Player.One], [..], [..], [..], [..], [..], [..] ]
+  to access the first column bottom cell you would need to...
+  const firstColBottomCell = board[0][0]
+  (Y)
+  5 | (x=0, y=5) | (x=1, y=5) | (x=2, y=5)  | (x=3, y=5)  | (x=4, y=5)  | (x=5, y=5)  | (x=6, y=5) |
+  4 | (x=0, y=4) | (x=1, y=4) | (x=2, y=4)  | (x=3, y=4)  | (x=4, y=4)  | (x=5, y=4)  | (x=6, y=4) |
+  3 | (x=0, y=3) | (x=1, y=3) | (x=2, y=3)  | (x=3, y=3)  | (x=4, y=3)  | (x=5, y=3)  | (x=6, y=3) |
+  2 | (x=0, y=2) | (x=1, y=2) | (x=2, y=2)  | (x=3, y=2)  | (x=4, y=2)  | (x=5, y=2)  | (x=6, y=2) |
+  1 | (x=0, y=1) | (x=1, y=1) | (x=2, y=1)  | (x=3, y=1)  | (x=4, y=1)  | (x=5, y=1)  | (x=6, y=1) |
+  0 | (x=0, y=0) | (x=1, y=0) | (x=2, y=0)  | (x=3, y=0)  | (x=4, y=0)  | (x=5, y=0)  | (x=6, y=0) |
+    | 0          | 1          | 2           | 3           | 4           | 5           | 6          |
+*/
 /**
  * A board is composed of:
  * 7 columns
@@ -41,6 +56,16 @@ export type Board = Readonly<
     Column // G
   ]
 >
+
+export function makeBoard(): Board {
+  return [[], [], [], [], [], [], []]
+}
+
+export function getCell(
+  board: Board
+): (x: 0 | 1 | 2 | 3 | 4 | 5 | 6, y: 0 | 1 | 2 | 3 | 4 | 5) => Cell {
+  return (x, y) => board[x][y]
+}
 
 export function isColumnFull(column: Column): boolean {
   return column.length >= 6
