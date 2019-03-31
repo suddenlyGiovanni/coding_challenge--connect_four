@@ -1,11 +1,13 @@
 import {
   makeBoard,
   getColumn,
+  getRow,
   getCell,
   isColumnFull,
   updateColumn,
   checkColumn,
   Column,
+  Row,
   Player,
   Board,
 } from './index'
@@ -59,6 +61,26 @@ const testBoard: Board = [
   playerOneWinningColumn,
 ]
 
+const testBoardRow0: Row = [
+  partiallyFilledColumn[0],
+  undefined,
+  playerOneNullColumn[0],
+  undefined,
+  undefined,
+  undefined,
+  playerOneWinningColumn[0],
+]
+
+const testBoardRow1: Row = [
+  partiallyFilledColumn[1],
+  undefined,
+  playerOneNullColumn[1],
+  undefined,
+  undefined,
+  undefined,
+  playerOneWinningColumn[1],
+]
+
 describe('makeBoard', () => {
   it('returns an empty board', () => {
     expect(makeBoard()).toEqual(emptyBoard)
@@ -79,6 +101,14 @@ describe('getColumn', () => {
       Player.One,
       Player.One,
     ])
+  })
+})
+
+describe('getRow', () => {
+  it('happy path', () => {
+    const getTestBoardRow = getRow(testBoard)
+    expect(getTestBoardRow(0)).toEqual(testBoardRow0)
+    expect(getTestBoardRow(1)).toEqual(testBoardRow1)
   })
 })
 
