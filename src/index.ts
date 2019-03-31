@@ -25,6 +25,8 @@ export type Column = Readonly<
   | [Cell, Cell, Cell, Cell, Cell]
   | [Cell, Cell, Cell, Cell, Cell, Cell]
 >
+
+export type winningColumn = Readonly<[Player, Player, Player, Player]>
 /**
  * A Row is composed of 7 Cells
  * it can be represented as a tuple of 7 Cells
@@ -40,6 +42,12 @@ export type Row = Readonly<
   | [Cell, Cell, Cell, Cell, Cell]
   | [Cell, Cell, Cell, Cell, Cell, Cell]
   | [Cell, Cell, Cell, Cell, Cell, Cell, Cell]
+>
+
+export type winningRow = Readonly<[Player, Player, Player, Player]>
+
+export type WinningCoordinates = Readonly<
+  [[Player], [Player], [Player], [Player]]
 >
 /*
   Board is a grid of 7*6 and can be represented as `two dimensional array`
@@ -107,36 +115,42 @@ export function updateColumn(player: Player, column: Column): Column {
   return _column //?
 }
 
-export function checkColumn(player: Player, column: Column): null | number[] {
-  let array = [] //?
-  // creates an array of all the player's checker
-  for (let index = 0; index < column.length; index++) {
-    const cell = column[index]
-    if (cell === player) {
-      array.push(index)
+export function checkColumn(
+  player: Player
+): (column: Column) => null | winningColumn {
+  return column => {
+    let array: number[] = [] //?
+    // creates an array of all the player's checker
+    for (let index = 0; index < column.length; index++) {
+      const cell = column[index]
+      if (cell === player) {
+        array.push(index)
+      }
     }
-  }
 
-  // early returns if the total number of player checker is lower than the require victory condition
-  if (array.length < 4) {
+    // early returns if the total number of player checker is lower than the require victory condition
+    if (array.length < 4) {
+      array //?
+      return null
+    }
     array //?
-    return null
+
+    // looks contiguous indexes
+    const contiguousArray = array.filter((current, index, array) => {
+      const previous: number = array[index - 1] //?
+      current //?
+      const next: number = array[index + 1] //?
+      if (!previous) {
+        return current + 1 === next //?
+      }
+      if (!next) {
+        return current - 1 === previous //?
+      }
+      return current - 1 === previous || current + 1 === next
+    }) //?
+
+    return contiguousArray.length < 4 || contiguousArray.length > 4
+      ? null
+      : ((contiguousArray as unknown) as winningColumn) //?
   }
-  array //?
-
-  // looks contiguous indexes
-  const contiguousArray = array.filter((current, index, array) => {
-    const previous: number = array[index - 1] //?
-    current //?
-    const next: number = array[index + 1] //?
-    if (!previous) {
-      return current + 1 === next //?
-    }
-    if (!next) {
-      return current - 1 === previous //?
-    }
-    return current - 1 === previous || current + 1 === next
-  }) //?
-
-  return contiguousArray.length < 4 ? null : contiguousArray //?
 }
