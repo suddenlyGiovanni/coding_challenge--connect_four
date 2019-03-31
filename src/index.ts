@@ -46,9 +46,6 @@ export type Row = Readonly<
 
 export type winningRow = Readonly<[Player, Player, Player, Player]>
 
-export type WinningCoordinates = Readonly<
-  [[Player], [Player], [Player], [Player]]
->
 /*
   Board is a grid of 7*6 and can be represented as `two dimensional array`
   ex: const board = [[Player.One], [..], [..], [..], [..], [..], [..] ]
@@ -115,14 +112,14 @@ export function updateColumn(player: Player, column: Column): Column {
   return _column //?
 }
 
-export function checkColumn(
+export function checkHorizontalOrVertical(
   player: Player
-): (column: Column) => null | winningColumn {
-  return column => {
+): (rowOrColumn: Row | Column) => null | winningRow | winningColumn {
+  return rowOrColumn => {
     let array: number[] = [] //?
     // creates an array of all the player's checker
-    for (let index = 0; index < column.length; index++) {
-      const cell = column[index]
+    for (let index = 0; index < rowOrColumn.length; index++) {
+      const cell = rowOrColumn[index]
       if (cell === player) {
         array.push(index)
       }
@@ -151,6 +148,6 @@ export function checkColumn(
 
     return contiguousArray.length < 4 || contiguousArray.length > 4
       ? null
-      : ((contiguousArray as unknown) as winningColumn) //?
+      : ((contiguousArray as unknown) as winningColumn | winningRow) //?
   }
 }

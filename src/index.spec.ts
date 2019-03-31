@@ -5,7 +5,7 @@ import {
   getCell,
   isColumnFull,
   updateColumn,
-  checkColumn,
+  checkHorizontalOrVertical,
   Column,
   Row,
   Player,
@@ -62,23 +62,23 @@ const testBoard: Board = [
 ]
 
 const testBoardRow0: Row = [
-  partiallyFilledColumn[0],
+  partiallyFilledColumn[0], // Player.One
   undefined,
-  playerOneNullColumn[0],
+  playerOneNullColumn[0], // Player.One,
   undefined,
   undefined,
   undefined,
-  playerOneWinningColumn[0],
+  playerOneWinningColumn[0], // Player.One,
 ]
 
 const testBoardRow1: Row = [
-  partiallyFilledColumn[1],
+  partiallyFilledColumn[1], // Player.Two
   undefined,
-  playerOneNullColumn[1],
+  playerOneNullColumn[1], // Player.Two,
   undefined,
   undefined,
   undefined,
-  playerOneWinningColumn[1],
+  playerOneWinningColumn[1], // Player.One,
 ]
 
 describe('makeBoard', () => {
@@ -148,16 +148,24 @@ describe('updateColumn', () => {
 })
 
 describe('checkColumn', () => {
-  const checkPlayerOneColumn = checkColumn(Player.One)
-  it('returns `null` if no match are found', () => {
-    expect(checkPlayerOneColumn(partiallyFilledColumn)).toBe(null)
+  const checkPlayerOne = checkHorizontalOrVertical(Player.One)
+  it('returns `null` if no match are found for the desired column', () => {
+    expect(checkPlayerOne(partiallyFilledColumn)).toBe(null)
+  })
+
+  it('returns `null` if no match are found for the desired row', () => {
+    expect(checkPlayerOne(testBoardRow0)).toBe(null)
   })
 
   it('returns `null` if provided with 4 non consecutive cells', () => {
-    expect(checkPlayerOneColumn(playerOneNullColumn)).toBe(null)
+    expect(checkPlayerOne(playerOneNullColumn)).toBe(null)
   })
 
-  it('returns an a 2d tuple containing the coordinates of the winning checkers', () => {
-    expect(checkPlayerOneColumn(playerOneWinningColumn)).toEqual([2, 3, 4, 5])
+  it('returns an a 2d tuple containing the coordinates of the winning checkers on the vertical axe', () => {
+    expect(checkPlayerOne(playerOneWinningColumn)).toEqual([2, 3, 4, 5])
   })
+
+  it.todo(
+    'returns an a 2d tuple containing the coordinates of the winning checkers on the horizontal axe'
+  )
 })
