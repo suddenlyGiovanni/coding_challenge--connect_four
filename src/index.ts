@@ -82,6 +82,10 @@ export function getColumn(
   return x => board[x]
 }
 
+export function getRow(board: Board): (y: 0 | 1 | 2 | 3 | 4 | 5) => Row {
+  return y => board.map(column => column[y])
+}
+
 export function getCell(
   board: Board
 ): (x: 0 | 1 | 2 | 3 | 4 | 5 | 6, y: 0 | 1 | 2 | 3 | 4 | 5) => Cell {
