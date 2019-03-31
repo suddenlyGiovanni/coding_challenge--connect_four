@@ -1,5 +1,6 @@
 import {
   makeBoard,
+  getColumn,
   getCell,
   isColumnFull,
   updateColumn,
@@ -46,27 +47,47 @@ const playerOneNullColumn: Column = [
   Player.One, // 5
 ]
 
+const emptyBoard: Board = [[], [], [], [], [], [], []]
+
+const testBoard: Board = [
+  partiallyFilledColumn,
+  [],
+  playerOneNullColumn,
+  [],
+  [],
+  [],
+  playerOneWinningColumn,
+]
+
 describe('makeBoard', () => {
   it('returns an empty board', () => {
-    expect(makeBoard()).toEqual([[], [], [], [], [], [], []])
+    expect(makeBoard()).toEqual(emptyBoard)
+  })
+})
+
+describe('getColumn', () => {
+  it('happy path', () => {
+    const getTestBoardColumn = getColumn(testBoard)
+    expect(getTestBoardColumn(0)).toEqual(partiallyFilledColumn)
+    expect(getTestBoardColumn(1)).toEqual([])
+    expect(getTestBoardColumn(2)).toEqual(playerOneNullColumn)
+    expect(getTestBoardColumn(6)).toEqual([
+      Player.One,
+      Player.Two,
+      Player.One,
+      Player.One,
+      Player.One,
+      Player.One,
+    ])
   })
 })
 
 describe('getCell', () => {
-  const board: Board = [
-    partiallyFilledColumn,
-    [],
-    playerOneNullColumn,
-    [],
-    [],
-    [],
-    playerOneWinningColumn,
-  ]
   it('happy path', () => {
-    const _board = getCell(board)
-    expect(_board(0, 0)).toBe(Player.One)
-    expect(_board(0, 1)).toBe(Player.Two)
-    expect(_board(6, 5)).toBe(Player.One)
+    const getTestBoardCell = getCell(testBoard)
+    expect(getTestBoardCell(0, 0)).toBe(Player.One)
+    expect(getTestBoardCell(0, 1)).toBe(Player.Two)
+    expect(getTestBoardCell(6, 5)).toBe(Player.One)
   })
 })
 
