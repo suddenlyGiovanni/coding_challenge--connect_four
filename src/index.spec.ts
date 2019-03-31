@@ -1,9 +1,12 @@
 import {
+  makeBoard,
+  getCell,
   isColumnFull,
   updateColumn,
   checkColumn,
   Column,
   Player,
+  Board,
 } from './index'
 
 const emptyColumn: Column = []
@@ -42,6 +45,30 @@ const playerOneNullColumn: Column = [
   Player.One, // 4
   Player.One, // 5
 ]
+
+describe('makeBoard', () => {
+  it('returns an empty board', () => {
+    expect(makeBoard()).toEqual([[], [], [], [], [], [], []])
+  })
+})
+
+describe('getCell', () => {
+  const board: Board = [
+    partiallyFilledColumn,
+    [],
+    playerOneNullColumn,
+    [],
+    [],
+    [],
+    playerOneWinningColumn,
+  ]
+  it('happy path', () => {
+    const _board = getCell(board)
+    expect(_board(0, 0)).toBe(Player.One)
+    expect(_board(0, 1)).toBe(Player.Two)
+    expect(_board(6, 5)).toBe(Player.One)
+  })
+})
 
 describe('isColumnFull', () => {
   it('happy path', () => {
