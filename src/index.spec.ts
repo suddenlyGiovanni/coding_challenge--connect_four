@@ -148,20 +148,16 @@ describe('updateColumn', () => {
 })
 
 describe('checkColumn', () => {
+  const checkPlayerOneColumn = checkColumn(Player.One)
   it('returns `null` if no match are found', () => {
-    expect(checkColumn(Player.One, partiallyFilledColumn)).toBe(null)
+    expect(checkPlayerOneColumn(partiallyFilledColumn)).toBe(null)
   })
 
   it('returns `null` if provided with 4 non consecutive cells', () => {
-    expect(checkColumn(Player.One, playerOneNullColumn)).toBe(null)
+    expect(checkPlayerOneColumn(playerOneNullColumn)).toBe(null)
   })
 
-  it('returns an `Array` containing the indexes of the winning checkers', () => {
-    expect(checkColumn(Player.One, playerOneWinningColumn)).toEqual([
-      2,
-      3,
-      4,
-      5,
-    ])
+  it('returns an a 2d tuple containing the coordinates of the winning checkers', () => {
+    expect(checkPlayerOneColumn(playerOneWinningColumn)).toEqual([2, 3, 4, 5])
   })
 })
