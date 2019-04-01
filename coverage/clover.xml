@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1554152130576" clover="3.2.0">
+  <project timestamp="1554152130576" name="All files">
+    <metrics statements="71" coveredstatements="71" conditionals="36" coveredconditionals="36" methods="25" coveredmethods="25" elements="132" coveredelements="132" complexity="0" loc="71" ncloc="71" packages="2" files="2" classes="2"/>
+    <package name="src">
+      <metrics statements="41" coveredstatements="41" conditionals="12" coveredconditionals="12" methods="16" coveredmethods="16"/>
+      <file name="index.ts" path="/Users/webdev/projects/personal/connect-four/src/index.ts">
+        <metrics statements="41" coveredstatements="41" conditionals="12" coveredconditionals="12" methods="16" coveredmethods="16"/>
+        <line num="12" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="7" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="4" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="36" count="3" type="stmt"/>
+        <line num="37" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="5" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="60" count="2" type="stmt"/>
+        <line num="61" count="5" type="stmt"/>
+        <line num="63" count="5" type="stmt"/>
+        <line num="64" count="32" type="stmt"/>
+        <line num="66" count="22" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="73" count="1" type="stmt"/>
+        <line num="75" count="4" type="stmt"/>
+        <line num="78" count="4" type="stmt"/>
+        <line num="79" count="20" type="stmt"/>
+        <line num="80" count="20" type="stmt"/>
+        <line num="81" count="20" type="stmt"/>
+        <line num="83" count="8" type="stmt"/>
+        <line num="86" count="4" type="stmt"/>
+        <line num="88" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="91" count="4" type="cond" truecount="2" falsecount="0"/>
+      </file>
+    </package>
+    <package name="src.move">
+      <metrics statements="30" coveredstatements="30" conditionals="24" coveredconditionals="24" methods="9" coveredmethods="9"/>
+      <file name="move.ts" path="/Users/webdev/projects/personal/connect-four/src/move/move.ts">
+        <metrics statements="30" coveredstatements="30" conditionals="24" coveredconditionals="24" methods="9" coveredmethods="9"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="4" type="stmt"/>
+        <line num="22" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="28" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="35" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="41" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="48" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="54" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="61" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="67" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
