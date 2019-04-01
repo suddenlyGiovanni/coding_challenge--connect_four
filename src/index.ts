@@ -96,6 +96,73 @@ export function getCell(board: Board): (x: X, y: Y) => Cell {
   return (x, y) => board[x][y]
 }
 
+// TODO: add typings to return of the factory fn
+// TODO: add test coverage
+export function currentCoordinates(x: Y, y: Y): any {
+  return {
+    up(): void | [X, Y] {
+      if (y >= 5) return undefined
+      const toY: Y = (y + 1) as Y
+      return [x, toY]
+    },
+
+    down(): void | [X, Y] {
+      if (y >= 0) return undefined
+      const toY: Y = (y - 1) as Y
+      return [x, toY]
+    },
+
+    left(): void | [X, Y] {
+      if (x <= 0) return undefined
+      const toX: X = (x - 1) as X
+      return [toX, y]
+    },
+
+    right(): void | [X, Y] {
+      if (x >= 6) return undefined
+      const toX: X = (x + 1) as X
+      return [toX, y]
+    },
+
+    upRight(): void | [X, Y] {
+      if (x >= 6 || y >= 5) return
+      const toX: X = (x + 1) as X
+      const toY: Y = (y + 1) as Y
+      return [toX, toY]
+    },
+
+    upLeft(): void | [X, Y] {
+      if (x <= 0 || y >= 5) return
+      const toX: X = (x - 1) as X
+      const toY: Y = (y + 1) as Y
+      return [toX, toY]
+    },
+
+    downRight(): void | [X, Y] {
+      if (x >= 6 || y <= 0) return undefined
+      const toX: X = (x + 1) as X
+      const toY: Y = (y - 1) as Y
+      return [toX, toY]
+    },
+
+    downLeft(): void | [X, Y] {
+      if (x <= 0 || y <= 0) return undefined
+      const toX: X = (x - 1) as X
+      const toY: Y = (y - 1) as Y
+      return [toX, toY]
+    },
+  }
+}
+
+export function getCellUpRight(board: Board): (fromX: X, fromY: Y) => Cell {
+  return (fromX, fromY) => {
+    const toX = fromX + 1
+    const toY = fromY + 1
+    if (toX > 6 || toY > 5) return undefined
+    return getCell(board)(toX as X, toY as Y)
+  }
+}
+
 export function isColumnFull(column: Column): boolean {
   return column.length >= 6
 }
