@@ -1,3 +1,6 @@
+import { Column, Row, Board } from 'MyTypes'
+import { Player } from './index'
+
 import {
   makeBoard,
   getColumn,
@@ -7,10 +10,6 @@ import {
   isColumnFull,
   updateColumn,
   checkHorizontalOrVertical,
-  Column,
-  Row,
-  Player,
-  Board,
 } from './index'
 
 const emptyColumn: Column = []
