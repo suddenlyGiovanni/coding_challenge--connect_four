@@ -77,23 +77,22 @@ export type Board = Readonly<
   ]
 >
 
+type X = 0 | 1 | 2 | 3 | 4 | 5 | 6
+type Y = 0 | 1 | 2 | 3 | 4 | 5
+
 export function makeBoard(): Board {
   return [[], [], [], [], [], [], []]
 }
 
-export function getColumn(
-  board: Board
-): (x: 0 | 1 | 2 | 3 | 4 | 5 | 6) => Column {
+export function getColumn(board: Board): (x: X) => Column {
   return x => board[x]
 }
 
-export function getRow(board: Board): (y: 0 | 1 | 2 | 3 | 4 | 5) => Row {
+export function getRow(board: Board): (y: Y) => Row {
   return y => board.map(column => column[y])
 }
 
-export function getCell(
-  board: Board
-): (x: 0 | 1 | 2 | 3 | 4 | 5 | 6, y: 0 | 1 | 2 | 3 | 4 | 5) => Cell {
+export function getCell(board: Board): (x: X, y: Y) => Cell {
   return (x, y) => board[x][y]
 }
 
