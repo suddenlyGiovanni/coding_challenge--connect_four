@@ -3,6 +3,7 @@ import {
   getColumn,
   getRow,
   getCell,
+  getCellUpRight,
   isColumnFull,
   updateColumn,
   checkHorizontalOrVertical,
@@ -158,6 +159,18 @@ describe('getCell', () => {
     expect(getTestBoardCell(0, 0)).toBe(Player.One)
     expect(getTestBoardCell(0, 1)).toBe(Player.Two)
     expect(getTestBoardCell(6, 1)).toBe(undefined)
+  })
+})
+
+describe('getCellUpRight', () => {
+  const getTestBoardCellUpRight = getCellUpRight(testBoard)
+  it("returns its neighbor's Cell located one spot up to the right", () => {
+    expect(getTestBoardCellUpRight(0, 0)).toEqual(Player.One)
+  })
+
+  it('returns undefined if either `fromX` or `fromY` are out of bounds', () => {
+    expect(getTestBoardCellUpRight(1, 5)).toBe(undefined)
+    expect(getTestBoardCellUpRight(6, 1)).toBe(undefined)
   })
 })
 
