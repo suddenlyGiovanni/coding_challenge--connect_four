@@ -52,33 +52,82 @@ const playerOneNullColumn: Column = [
 const emptyBoard: Board = [[], [], [], [], [], [], []]
 
 const testBoard: Board = [
-  partiallyFilledColumn,
-  [],
-  playerOneNullColumn,
-  [],
-  [],
-  [],
-  playerOneWinningColumn,
+  [Player.One, Player.Two, Player.One, Player.Two],
+  [Player.One, Player.One, Player.Two],
+  [Player.One, Player.Two, Player.One, Player.One, Player.One, Player.One],
+  [Player.Two, Player.Two, Player.One, Player.One],
+  [Player.One, Player.Two, Player.Two],
+  [Player.Two, Player.Two],
+  [Player.One],
+]
+
+const testBoardColumn0: Column = [
+  Player.One,
+  Player.Two,
+  Player.One,
+  Player.Two,
+]
+
+/**
+ * testBoard column 2
+ * Player One connect four vertical:
+ * [[2, 2], [2, 3], [2, 4], [2, 5]]
+ */
+const testBoardColumn2: Column = [
+  Player.One,
+  Player.Two,
+  Player.One,
+  Player.One,
+  Player.One,
+  Player.One,
 ]
 
 const testBoardRow0: Row = [
-  partiallyFilledColumn[0], // Player.One
-  undefined,
-  playerOneNullColumn[0], // Player.One,
-  undefined,
-  undefined,
-  undefined,
-  playerOneWinningColumn[0], // Player.One,
+  Player.One,
+  Player.One,
+  Player.One,
+  Player.Two,
+  Player.One,
+  Player.Two,
+  Player.One,
 ]
 
+/**
+ * testBoard row 1
+ * Player Tow connect four horizontal:
+ * [[2, 1], [3, 1], [4, 1], [5, 1]]
+ */
 const testBoardRow1: Row = [
-  partiallyFilledColumn[1], // Player.Two
+  Player.Two,
+  Player.One,
+  Player.Two,
+  Player.Two,
+  Player.Two,
+  Player.Two,
   undefined,
-  playerOneNullColumn[1], // Player.Two,
-  undefined,
-  undefined,
-  undefined,
-  playerOneWinningColumn[1], // Player.One,
+]
+
+/**
+ * testBoard diagonal upward to the right, starting form (x=0, y=0)
+ * Player One connect four diagonal up-right:
+ * [[0, 0], [1, 1], [2, 2], [3, 3]]
+ */
+const testBoardDiagonalUpRight0 = [
+  Player.One,
+  Player.One,
+  Player.One,
+  Player.One,
+]
+/**
+ * testBoard diagonal down to the right, starting from (x=0, y=3)
+ * Player Two connect four diagonal down-right:
+ * [[0, 3], [1, 2], [2, 1], [3, 0]]
+ */
+const testBoardDiagonalDownRight0 = [
+  Player.Two,
+  Player.Two,
+  Player.Two,
+  Player.Two,
 ]
 
 describe('makeBoard', () => {
@@ -90,24 +139,15 @@ describe('makeBoard', () => {
 describe('getColumn', () => {
   it('happy path', () => {
     const getTestBoardColumn = getColumn(testBoard)
-    expect(getTestBoardColumn(0)).toEqual(partiallyFilledColumn)
-    expect(getTestBoardColumn(1)).toEqual([])
-    expect(getTestBoardColumn(2)).toEqual(playerOneNullColumn)
-    expect(getTestBoardColumn(6)).toEqual([
-      Player.One,
-      Player.Two,
-      Player.One,
-      Player.One,
-      Player.One,
-      Player.One,
-    ])
+    expect(getTestBoardColumn(0)).toEqual(testBoardColumn0)
+    expect(getTestBoardColumn(2)).toEqual(testBoardColumn2)
+    expect(getTestBoardColumn(6)).toEqual([Player.One])
   })
 })
 
 describe('getRow', () => {
   it('happy path', () => {
     const getTestBoardRow = getRow(testBoard)
-    expect(getTestBoardRow(0)).toEqual(testBoardRow0)
     expect(getTestBoardRow(1)).toEqual(testBoardRow1)
   })
 })
@@ -117,7 +157,7 @@ describe('getCell', () => {
     const getTestBoardCell = getCell(testBoard)
     expect(getTestBoardCell(0, 0)).toBe(Player.One)
     expect(getTestBoardCell(0, 1)).toBe(Player.Two)
-    expect(getTestBoardCell(6, 5)).toBe(Player.One)
+    expect(getTestBoardCell(6, 1)).toBe(undefined)
   })
 })
 
@@ -149,6 +189,7 @@ describe('updateColumn', () => {
 
 describe('checkColumn', () => {
   const checkPlayerOne = checkHorizontalOrVertical(Player.One)
+  const checkPlayerTow = checkHorizontalOrVertical(Player.Two)
   it('returns `null` if no match are found for the desired column', () => {
     expect(checkPlayerOne(partiallyFilledColumn)).toBe(null)
   })
@@ -158,11 +199,14 @@ describe('checkColumn', () => {
   })
 
   it('returns `null` if provided with 4 non consecutive cells', () => {
-    expect(checkPlayerOne(playerOneNullColumn)).toBe(null)
+    expect(checkPlayerOne(testBoardRow0)).toBe(null)
   })
 
-  it('returns an a 2d tuple containing the coordinates of the winning checkers on the vertical axe', () => {
-    expect(checkPlayerOne(playerOneWinningColumn)).toEqual([2, 3, 4, 5])
+  it('returns the coordinates as an `array of Y` of the winning checkers on the vertical axe', () => {
+    expect(checkPlayerOne(testBoardColumn2)).toEqual([2, 3, 4, 5])
+  })
+  it('returns the coordinates as an `array of X` of the winning checkers on the horizontal axe', () => {
+    expect(checkPlayerTow(testBoardRow1)).toEqual([2, 3, 4, 5])
   })
 
   it.todo(
