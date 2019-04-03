@@ -9,6 +9,8 @@ import {
   WinningRow,
 } from 'MyTypes'
 
+import { getCell } from './selectors/selectors'
+
 export enum Player {
   One = 1,
   Two = 2,
@@ -16,27 +18,6 @@ export enum Player {
 
 export function makeBoard(): Board {
   return [[], [], [], [], [], [], []]
-}
-
-export function getColumn(board: Board): (x: X) => Column {
-  return x => board[x]
-}
-
-export function getRow(board: Board): (y: Y) => Row {
-  return y => board.map(column => column[y])
-}
-
-export function getCell(board: Board): (x: X, y: Y) => Cell {
-  return (x, y) => board[x][y]
-}
-
-export function getCellUpRight(board: Board): (fromX: X, fromY: Y) => Cell {
-  return (fromX, fromY) => {
-    const toX = fromX + 1
-    const toY = fromY + 1
-    if (toX > 6 || toY > 5) return undefined
-    return getCell(board)(toX as X, toY as Y)
-  }
 }
 
 export function isColumnFull(column: Column): boolean {
