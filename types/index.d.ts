@@ -5,6 +5,8 @@ declare module 'MyTypes' {
 
   export type Coordinates = Readonly<[X, Y]>
 
+  export type ConnectFour = Readonly<[[X, Y], [X, Y], [X, Y], [X, Y]]>
+
   export enum Player {
     One = 1,
     Two = 2,
