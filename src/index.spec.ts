@@ -8,6 +8,8 @@ import {
   checkHorizontalOrVertical,
 } from './index'
 
+import { getColumn, getRow } from './selectors/selectors'
+
 describe('makeBoard', () => {
   it('returns an empty board', () => {
     expect(makeBoard()).toEqual(Fixture.emptyBoard)
@@ -43,23 +45,29 @@ describe('updateColumn', () => {
 describe('checkColumn', () => {
   const checkPlayerOne = checkHorizontalOrVertical(Player.One)
   const checkPlayerTow = checkHorizontalOrVertical(Player.Two)
+
+  const partiallyFilledColumn = getColumn(Fixture.testBoard)(0)
+  const testBoardRow0 = getRow(Fixture.testBoard)(0)
+  const testBoardColumn2 = getColumn(Fixture.testBoard)(2)
+  const testBoardRow1 = getRow(Fixture.testBoard)(1)
+
   it('returns `null` if no match are found for the desired column', () => {
-    expect(checkPlayerOne(Fixture.partiallyFilledColumn)).toBe(null)
+    expect(checkPlayerOne(partiallyFilledColumn)).toBe(null)
   })
 
   it('returns `null` if no match are found for the desired row', () => {
-    expect(checkPlayerOne(Fixture.testBoardRow0)).toBe(null)
+    expect(checkPlayerOne(testBoardRow0)).toBe(null)
   })
 
   it('returns `null` if provided with 4 non consecutive cells', () => {
-    expect(checkPlayerOne(Fixture.testBoardRow0)).toBe(null)
+    expect(checkPlayerOne(testBoardRow0)).toBe(null)
   })
 
   it('returns the coordinates as an `array of Y` of the winning checkers on the vertical axe', () => {
-    expect(checkPlayerOne(Fixture.testBoardColumn2)).toEqual([2, 3, 4, 5])
+    expect(checkPlayerOne(testBoardColumn2)).toEqual([2, 3, 4, 5])
   })
   it('returns the coordinates as an `array of X` of the winning checkers on the horizontal axe', () => {
-    expect(checkPlayerTow(Fixture.testBoardRow1)).toEqual([2, 3, 4, 5])
+    expect(checkPlayerTow(testBoardRow1)).toEqual([2, 3, 4, 5])
   })
 
   it.todo(
