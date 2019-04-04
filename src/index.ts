@@ -1,15 +1,6 @@
-import {
-  Board,
-  Column,
-  Row,
-  Cell,
-  X,
-  Y,
-  WinningColumn,
-  WinningRow,
-} from 'MyTypes'
+import { Board, Column, Row, ConnectFour, Coordinates } from 'MyTypes'
 
-import { getCell } from './selectors/selectors'
+import { getColumn, getRow } from './selectors/selectors'
 
 export enum Player {
   One = 1,
@@ -35,28 +26,40 @@ export function updateColumn(player: Player, column: Column): Column {
   return _column //?
 }
 
-export function checkHorizontalOrVertical(
+export function checkMainAxis(
   player: Player
-): (rowOrColumn: Row | Column) => null | WinningRow | WinningColumn {
-  return rowOrColumn => {
-    let array: number[] = [] //?
+): (
+  board: Board
+) => ({
+  axe,
+  coords,
+}: {
+  axe: 'horizontal' | 'vertical'
+  coords: Coordinates
+}) => null | ConnectFour {
+  return board => ({ axe, coords }) => {
+    const [x, y] = coords
+    const _axe: Row | Column =
+      axe === 'horizontal'
+        ? getRow(board)(y) //?
+        : getColumn(board)(x) //?
+
+    let arrayOfIndexes: number[] = [] //?
     // creates an array of all the player's checker
-    for (let index = 0; index < rowOrColumn.length; index++) {
-      const cell = rowOrColumn[index]
+    for (let index = 0; index < _axe.length; index++) {
+      const cell = _axe[index]
       if (cell === player) {
-        array.push(index)
+        arrayOfIndexes.push(index)
       }
     }
-
     // early returns if the total number of player checker is lower than the require victory condition
-    if (array.length < 4) {
-      array //?
+    if (arrayOfIndexes.length < 4) {
+      arrayOfIndexes //?
       return null
     }
-    array //?
-
+    arrayOfIndexes //?
     // looks contiguous indexes
-    const contiguousArray = array.filter((current, index, array) => {
+    const contiguousArray = arrayOfIndexes.filter((current, index, array) => {
       const previous: number = array[index - 1] //?
       current //?
       const next: number = array[index + 1] //?
@@ -69,8 +72,10 @@ export function checkHorizontalOrVertical(
       return current - 1 === previous || current + 1 === next
     }) //?
 
-    return contiguousArray.length < 4 || contiguousArray.length > 4
-      ? null
-      : ((contiguousArray as unknown) as WinningColumn | WinningRow) //?
+    if (contiguousArray.length !== 4) return null
+
+    return axe === 'horizontal'
+      ? ((contiguousArray.map(_x => [_x, y]) as unknown) as ConnectFour) //?
+      : ((contiguousArray.map(_y => [x, _y]) as unknown) as ConnectFour) //?
   }
 }
