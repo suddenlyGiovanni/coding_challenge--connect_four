@@ -35,8 +35,6 @@ declare module 'MyTypes' {
     | [Cell, Cell, Cell, Cell, Cell, Cell]
   >
 
-  export type WinningColumn = Readonly<[Player, Player, Player, Player]>
-
   /**
    * A Row is composed of 7 Cells
    * it can be represented as a tuple of 7 Cells
@@ -53,8 +51,6 @@ declare module 'MyTypes' {
     | [Cell, Cell, Cell, Cell, Cell, Cell]
     | [Cell, Cell, Cell, Cell, Cell, Cell, Cell]
   >
-
-  export type WinningRow = Readonly<[Player, Player, Player, Player]>
 
   /*
   Board is a grid of 7*6 and can be represented as `two dimensional array`
