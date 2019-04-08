@@ -1,10 +1,27 @@
-import { getCoordinates } from './move'
+import { move } from './move'
+import { X, Y } from 'MyTypes'
 
 describe('getCoordinates', () => {
-  const fromBottomLeft = getCoordinates(0, 0)
-  const fromTopLeft = getCoordinates(0, 5)
-  const fromBottomRight = getCoordinates(6, 0)
-  const fromTopRight = getCoordinates(6, 5)
+  const fromBottomLeft = move([0, 0])
+  const fromTopLeft = move([0, 5])
+  const fromBottomRight = move([6, 0])
+  const fromTopRight = move([6, 5])
+
+  test('it throws if the provided coords are already out of bounds', () => {
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    const columnOutOfBoundsLeft = () => move([-1 as X, 0])
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    const columnOutOfBoundsRight = () => move([7 as X, 0])
+    expect(columnOutOfBoundsLeft).toThrow('0 <= x <= 6')
+    expect(columnOutOfBoundsRight).toThrow('0 <= x <= 6')
+
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    const rowOutOfBoundsBottom = () => move([0, -1 as Y])
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    const rowOutOfBoundsTop = () => move([0, 6 as Y])
+    expect(rowOutOfBoundsBottom).toThrow('0 <= y <= 5')
+    expect(rowOutOfBoundsTop).toThrow('0 <= y <= 5')
+  })
 
   test('up', () => {
     expect(fromBottomLeft.up()).toEqual([0, 1])
@@ -41,6 +58,17 @@ describe('getCoordinates', () => {
     expect(fromTopLeft.downLeft()).toBeUndefined()
     expect(fromBottomRight.downLeft()).toBeUndefined()
     expect(fromBottomLeft.downLeft()).toBeUndefined()
+  })
+
+  describe('toDeadDownLeft', () => {
+    test('happy path', () => {
+      expect(fromTopRight.diagonallyDownLeft()).toEqual([1, 0])
+      expect(move([5, 5]).diagonallyDownLeft()).toEqual([0, 0])
+    })
+
+    it('returns original coordinate if already at the bottom end', () => {
+      expect(fromBottomLeft.diagonallyDownLeft()).toEqual([0, 0])
+    })
   })
 
   test('left', () => {

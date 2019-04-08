@@ -7,6 +7,11 @@ interface NewCoordinates {
   downRight: () => void | Coordinates
   down: () => void | Coordinates
   downLeft: () => void | Coordinates
+  /**
+   * walks the board diagonally down to the left to retrieve the coordinates
+   * of the most down to the left cell available for the provided input
+   */
+  diagonallyDownLeft: () => void | Coordinates
   left: () => void | Coordinates
   upLeft: () => void | Coordinates
 }
@@ -16,7 +21,9 @@ interface NewCoordinates {
  * |  x-1, y    | x=0 y=0 | x+1, y    |
  * |  x-1, y-1  | x, y-1  | x+1, y-1  |
  */
-export function getCoordinates(x: X, y: Y): NewCoordinates {
+export function move([x, y]: Coordinates): NewCoordinates {
+  if (x < 0 || x > 6) throw '0 <= x <= 6'
+  if (y < 0 || y > 5) throw '0 <= y <= 5'
   return {
     up(): void | Coordinates {
       if (y >= 5) return undefined
@@ -55,6 +62,13 @@ export function getCoordinates(x: X, y: Y): NewCoordinates {
       const toX: X = (x - 1) as X
       const toY: Y = (y - 1) as Y
       return [toX, toY]
+    },
+
+    diagonallyDownLeft() {
+      const coordinates: Coordinates = [x, y] //?
+      const downLeft = this.downLeft() //?
+      if (downLeft === undefined) return coordinates
+      return move(downLeft).diagonallyDownLeft() //?
     },
 
     left(): void | Coordinates {
