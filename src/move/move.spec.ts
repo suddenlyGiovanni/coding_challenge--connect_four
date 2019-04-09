@@ -1,7 +1,7 @@
 import { move } from './move'
 import { X, Y } from 'MyTypes'
 
-describe('getCoordinates', () => {
+describe('move', () => {
   const fromBottomLeft = move([0, 0])
   const fromTopLeft = move([0, 5])
   const fromBottomRight = move([6, 0])
@@ -23,10 +23,21 @@ describe('getCoordinates', () => {
     expect(rowOutOfBoundsTop).toThrow('0 <= y <= 5')
   })
 
-  test('up', () => {
-    expect(fromBottomLeft.up()).toEqual([0, 1])
-    // out of bounds at the top
-    expect(fromTopLeft.up()).toBe(undefined)
+  describe('up', () => {
+    test('out of bounds at the top', () => {
+      const upIterable = fromTopLeft.up() //?
+      expect(upIterable.next()).toEqual({ done: true, value: undefined })
+    })
+
+    test('happy path', () => {
+      const upIterable = fromBottomLeft.up() //?
+      expect(upIterable.next()).toEqual({ done: false, value: [0, 1] })
+      expect(upIterable.next()).toEqual({ done: false, value: [0, 2] })
+      expect(upIterable.next()).toEqual({ done: false, value: [0, 3] })
+      expect(upIterable.next()).toEqual({ done: false, value: [0, 4] })
+      expect(upIterable.next()).toEqual({ done: false, value: [0, 5] })
+      expect(upIterable.next()).toEqual({ done: true, value: undefined })
+    })
   })
 
   test('upRight', () => {
