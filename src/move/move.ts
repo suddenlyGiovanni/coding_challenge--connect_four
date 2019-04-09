@@ -5,7 +5,7 @@ interface NewCoordinates {
   upRight: () => IterableIterator<void | Coordinates>
   right: () => IterableIterator<void | Coordinates>
   downRight: () => IterableIterator<void | Coordinates>
-  down: () => void | Coordinates
+  down: () => IterableIterator<void | Coordinates>
   downLeft: () => void | Coordinates
   /**
    * walks the board diagonally down to the left to retrieve the coordinates
@@ -60,10 +60,12 @@ export function move(coordinates: Coordinates): NewCoordinates {
       yield* move(coords).downRight()
     },
 
-    down() {
+    *down() {
       if (y <= 0) return undefined
-      const toY: Y = (y - 1) as Y
-      return [x, toY]
+      const toY: Y = (y - 1) as Y //?
+      const coords: Coordinates = [x, toY] //?
+      yield coords
+      yield* move(coords).down()
     },
 
     downLeft() {
