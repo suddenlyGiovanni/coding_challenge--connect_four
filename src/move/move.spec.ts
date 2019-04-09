@@ -103,16 +103,34 @@ describe('move', () => {
     })
   })
 
-  test('down', () => {
-    expect(fromTopLeft.down()).toEqual([0, 4])
-    expect(fromBottomLeft.down()).toBeUndefined()
+  describe('down', () => {
+    test('out of bounds', () => {
+      expect(fromBottomLeft.down().next()).toEqual({
+        done: true,
+        value: undefined,
+      })
+    })
+    test('happy path', () => {
+      const downIterable = fromTopLeft.down() //?
+      expect(downIterable.next()).toEqual({ done: false, value: [0, 4] })
+      expect(downIterable.next()).toEqual({ done: false, value: [0, 3] })
+      expect(downIterable.next()).toEqual({ done: false, value: [0, 2] })
+      expect(downIterable.next()).toEqual({ done: false, value: [0, 1] })
+      expect(downIterable.next()).toEqual({ done: false, value: [0, 0] })
+      expect(downIterable.next()).toEqual({ done: true, value: undefined })
+    })
   })
 
-  test('downLeft', () => {
-    expect(fromTopRight.downLeft()).toEqual([5, 4])
-    expect(fromTopLeft.downLeft()).toBeUndefined()
-    expect(fromBottomRight.downLeft()).toBeUndefined()
-    expect(fromBottomLeft.downLeft()).toBeUndefined()
+  describe('downLeft', () => {
+    test('out of bounds', () => {
+      expect(fromTopLeft.downLeft()).toBeUndefined()
+      expect(fromBottomRight.downLeft()).toBeUndefined()
+      expect(fromBottomLeft.downLeft()).toBeUndefined()
+    })
+
+    test('happy path', () => {
+      expect(fromTopRight.downLeft()).toEqual([5, 4])
+    })
   })
 
   describe('toDeadDownLeft', () => {
@@ -126,15 +144,24 @@ describe('move', () => {
     })
   })
 
-  test('left', () => {
-    expect(fromTopRight.left()).toEqual([5, 5])
-    expect(fromTopLeft.left()).toBeUndefined()
+  describe('left', () => {
+    test('out of bounds', () => {
+      expect(fromTopLeft.left()).toBeUndefined()
+    })
+
+    test('happy path', () => {
+      expect(fromTopRight.left()).toEqual([5, 5])
+    })
   })
 
-  test('upLeft', () => {
-    expect(fromBottomRight.upLeft()).toEqual([5, 1])
-    expect(fromBottomLeft.upLeft()).toBeUndefined()
-    expect(fromTopRight.upLeft()).toBeUndefined()
-    expect(fromTopLeft.upLeft()).toBeUndefined()
+  describe('upLeft', () => {
+    test('out of bounds', () => {
+      expect(fromBottomLeft.upLeft()).toBeUndefined()
+      expect(fromTopRight.upLeft()).toBeUndefined()
+      expect(fromTopLeft.upLeft()).toBeUndefined()
+    })
+    test('happy path', () => {
+      expect(fromBottomRight.upLeft()).toEqual([5, 1])
+    })
   })
 })
