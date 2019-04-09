@@ -3,7 +3,7 @@ import { X, Y, Coordinates } from 'MyTypes'
 interface NewCoordinates {
   up: () => IterableIterator<void | Coordinates>
   upRight: () => IterableIterator<void | Coordinates>
-  right: () => void | Coordinates
+  right: () => IterableIterator<void | Coordinates>
   downRight: () => void | Coordinates
   down: () => void | Coordinates
   downLeft: () => void | Coordinates
@@ -43,11 +43,12 @@ export function move(coordinates: Coordinates): NewCoordinates {
       yield* move(coords).upRight() //?
     },
 
-    right() {
+    *right() {
       if (x >= 6) return undefined
       const toX: X = (x + 1) as X
-      const coords = [toX, y] as Coordinates
-      return coords
+      const coords = [toX, y] as Coordinates //?
+      yield coords
+      yield* move(coords).right()
     },
 
     downRight() {
