@@ -4,7 +4,7 @@ interface NewCoordinates {
   up: () => IterableIterator<void | Coordinates>
   upRight: () => IterableIterator<void | Coordinates>
   right: () => IterableIterator<void | Coordinates>
-  downRight: () => void | Coordinates
+  downRight: () => IterableIterator<void | Coordinates>
   down: () => void | Coordinates
   downLeft: () => void | Coordinates
   /**
@@ -51,11 +51,13 @@ export function move(coordinates: Coordinates): NewCoordinates {
       yield* move(coords).right()
     },
 
-    downRight() {
+    *downRight() {
       if (x >= 6 || y <= 0) return undefined
       const toX: X = (x + 1) as X
       const toY: Y = (y - 1) as Y
-      return [toX, toY]
+      const coords: Coordinates = [toX, toY] //?
+      yield coords
+      yield* move(coords).downRight()
     },
 
     down() {
