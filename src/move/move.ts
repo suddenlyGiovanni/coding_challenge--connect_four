@@ -1,8 +1,8 @@
 import { X, Y, Coordinates } from 'MyTypes'
 
 interface NewCoordinates {
-  up: () => IterableIterator<Coordinates | undefined>
-  upRight: () => void | Coordinates
+  up: () => IterableIterator<void | Coordinates>
+  upRight: () => IterableIterator<void | Coordinates>
   right: () => void | Coordinates
   downRight: () => void | Coordinates
   down: () => void | Coordinates
@@ -34,17 +34,20 @@ export function move(coordinates: Coordinates): NewCoordinates {
       yield* move(coords).up() //?
     },
 
-    upRight() {
-      if (x >= 6 || y >= 5) return
+    *upRight() {
+      if (x >= 6 || y >= 5) return undefined
       const toX: X = (x + 1) as X
       const toY: Y = (y + 1) as Y
-      return [toX, toY]
+      const coords: Coordinates = [toX, toY] //?
+      yield coords //?
+      yield* move(coords).upRight() //?
     },
 
     right() {
       if (x >= 6) return undefined
       const toX: X = (x + 1) as X
-      return [toX, y]
+      const coords = [toX, y] as Coordinates
+      return coords
     },
 
     downRight() {
