@@ -12,7 +12,7 @@ interface NewCoordinates {
    * of the most down to the left cell available for the provided input
    */
   diagonallyDownLeft: () => void | Coordinates
-  left: () => void | Coordinates
+  left: () => IterableIterator<void | Coordinates>
   upLeft: () => void | Coordinates
 }
 
@@ -87,10 +87,12 @@ export function move(coordinates: Coordinates): NewCoordinates {
       return coordinates //?
     },
 
-    left() {
+    *left() {
       if (x <= 0) return undefined
-      const toX: X = (x - 1) as X
-      return [toX, y]
+      const toX: X = (x - 1) as X //?
+      const coords: Coordinates = [toX, y] //?
+      yield coords //?
+      yield* move(coords).left()
     },
 
     upLeft() {
