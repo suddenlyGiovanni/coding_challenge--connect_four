@@ -40,11 +40,21 @@ describe('move', () => {
     })
   })
 
-  test('upRight', () => {
-    expect(fromBottomLeft.upRight()).toEqual([1, 1])
-    expect(fromTopLeft.upRight()).toBeUndefined()
-    expect(fromBottomRight.upRight()).toBeUndefined()
-    expect(fromTopRight.upRight()).toBeUndefined()
+  describe('upRight', () => {
+    test('out of bounds', () => {
+      expect(fromTopLeft.upRight().next().value).toBeUndefined()
+      expect(fromBottomRight.upRight().next().value).toBeUndefined()
+      expect(fromTopRight.upRight().next().value).toBeUndefined()
+    })
+    test('happy path', () => {
+      const upRightIterable = fromBottomLeft.upRight() //?
+      expect(upRightIterable.next()).toEqual({ done: false, value: [1, 1] })
+      expect(upRightIterable.next()).toEqual({ done: false, value: [2, 2] })
+      expect(upRightIterable.next()).toEqual({ done: false, value: [3, 3] })
+      expect(upRightIterable.next()).toEqual({ done: false, value: [4, 4] })
+      expect(upRightIterable.next()).toEqual({ done: false, value: [5, 5] })
+      expect(upRightIterable.next()).toEqual({ done: true, value: undefined })
+    })
   })
 
   test('right', () => {
