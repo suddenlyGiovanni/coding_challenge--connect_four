@@ -123,24 +123,41 @@ describe('move', () => {
 
   describe('downLeft', () => {
     test('out of bounds', () => {
-      expect(fromTopLeft.downLeft()).toBeUndefined()
-      expect(fromBottomRight.downLeft()).toBeUndefined()
-      expect(fromBottomLeft.downLeft()).toBeUndefined()
+      expect(fromTopLeft.downLeft().next()).toEqual({
+        done: true,
+        value: undefined,
+      })
+      expect(fromBottomRight.downLeft().next()).toEqual({
+        done: true,
+        value: undefined,
+      })
+      expect(fromBottomLeft.downLeft().next()).toEqual({
+        done: true,
+        value: undefined,
+      })
     })
 
     test('happy path', () => {
-      expect(fromTopRight.downLeft()).toEqual([5, 4])
+      const downLeftIterable = fromTopRight.downLeft() //?
+      expect(downLeftIterable.next()).toEqual({ done: false, value: [5, 4] })
+      expect(downLeftIterable.next()).toEqual({ done: false, value: [4, 3] })
+      expect(downLeftIterable.next()).toEqual({ done: false, value: [3, 2] })
+      expect(downLeftIterable.next()).toEqual({ done: false, value: [2, 1] })
+      expect(downLeftIterable.next()).toEqual({ done: false, value: [1, 0] })
+      expect(downLeftIterable.next()).toEqual({ done: true, value: undefined })
     })
   })
 
-  describe('toDeadDownLeft', () => {
+  describe('diagonallyDownLeft', () => {
+    it('returns original coordinate if already at the bottom end', () => {
+      expect(fromBottomLeft.diagonallyDownLeft()).toEqual([0, 0])
+    })
+
     test('happy path', () => {
       expect(fromTopRight.diagonallyDownLeft()).toEqual([1, 0])
       expect(move([5, 5]).diagonallyDownLeft()).toEqual([0, 0])
-    })
-
-    it('returns original coordinate if already at the bottom end', () => {
-      expect(fromBottomLeft.diagonallyDownLeft()).toEqual([0, 0])
+      expect(move([4, 5]).diagonallyDownLeft()).toEqual([0, 1])
+      expect(move([0, 5]).diagonallyDownLeft()).toEqual([0, 5])
     })
   })
 

@@ -6,7 +6,7 @@ interface NewCoordinates {
   right: () => IterableIterator<void | Coordinates>
   downRight: () => IterableIterator<void | Coordinates>
   down: () => IterableIterator<void | Coordinates>
-  downLeft: () => void | Coordinates
+  downLeft: () => IterableIterator<void | Coordinates>
   /**
    * walks the board diagonally down to the left to retrieve the coordinates
    * of the most down to the left cell available for the provided input
@@ -68,18 +68,23 @@ export function move(coordinates: Coordinates): NewCoordinates {
       yield* move(coords).down()
     },
 
-    downLeft() {
+    *downLeft() {
       if (x <= 0 || y <= 0) return undefined
-      const toX: X = (x - 1) as X
-      const toY: Y = (y - 1) as Y
-      return [toX, toY]
+      const toX: X = (x - 1) as X //?
+      const toY: Y = (y - 1) as Y //?
+      const coords: Coordinates = [toX, toY] //?
+      yield coords
+      yield* move(coords).downLeft()
     },
 
     diagonallyDownLeft() {
       coordinates //?
-      const downLeft = this.downLeft() //?
-      if (downLeft === undefined) return coordinates
-      return move(downLeft).diagonallyDownLeft() //?
+      const downLeftIterable = this.downLeft() //?
+      const downLeft = downLeftIterable.next() //?
+      if (downLeft.done === false && downLeft.value !== undefined) {
+        return move(downLeft.value).diagonallyDownLeft() //?
+      }
+      return coordinates //?
     },
 
     left() {
