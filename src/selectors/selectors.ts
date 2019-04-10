@@ -13,19 +13,29 @@ export function getCell(board: Board): (x: X, y: Y) => Cell {
   return (x, y) => board[x][y]
 }
 
-export function getRightDiagonal(
+export function getDiagonalRight(
   coordinates: Coordinates
 ): ReadonlyArray<Coordinates> {
   // move diagonally down to the left to the starting point
   const startingPoint: Coordinates = move(coordinates).diagonallyDownLeft() //?
   const upRightIterable = move(startingPoint).upRight() //?
 
-  let rightDiagonalCoordinates = [startingPoint]
+  const rightDiagonalCoordinates = [startingPoint]
   for (const iterator of upRightIterable) {
-    iterator //?
-    if (iterator !== undefined) {
-      rightDiagonalCoordinates.push(iterator) //?
-    }
+    iterator && rightDiagonalCoordinates.push(iterator) //?
   }
   return rightDiagonalCoordinates //?
+}
+
+export function getDiagonalLeft(
+  coordinates: Coordinates
+): ReadonlyArray<Coordinates> {
+  // move diagonally down to the right to the starting point
+  const startingPoint: Coordinates = move(coordinates).diagonallyDownRight() //?
+  const upLeftIterable = move(startingPoint).upLeft() //?
+  const leftDiagonalCoordinates = [startingPoint]
+  for (const iterator of upLeftIterable) {
+    iterator && leftDiagonalCoordinates.push(iterator) //?
+  }
+  return leftDiagonalCoordinates //?
 }
