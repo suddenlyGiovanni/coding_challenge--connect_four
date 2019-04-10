@@ -29,77 +29,89 @@ export function move(coordinates: Coordinates): NewCoordinates {
   return {
     *up() {
       if (y >= 5) return undefined
-      const coords = [x, y + 1] as Coordinates //?
-      yield coords //?
-      yield* move(coords).up() //?
+      const coords: Coordinates = [
+        x, //
+        (y + 1) as Y, //
+      ]
+      yield coords
+      yield* move(coords).up()
     },
 
     *upRight() {
       if (x >= 6 || y >= 5) return undefined
-      const toX: X = (x + 1) as X
-      const toY: Y = (y + 1) as Y
-      const coords: Coordinates = [toX, toY] //?
-      yield coords //?
-      yield* move(coords).upRight() //?
+      const coords: Coordinates = [
+        (x + 1) as X, //
+        (y + 1) as Y, //
+      ]
+      yield coords
+      yield* move(coords).upRight()
     },
 
     *right() {
       if (x >= 6) return undefined
-      const toX: X = (x + 1) as X
-      const coords = [toX, y] as Coordinates //?
+      const coords: Coordinates = [
+        (x + 1) as X, //
+        y, //
+      ]
       yield coords
       yield* move(coords).right()
     },
 
     *downRight() {
       if (x >= 6 || y <= 0) return undefined
-      const toX: X = (x + 1) as X
-      const toY: Y = (y - 1) as Y
-      const coords: Coordinates = [toX, toY] //?
+      const coords: Coordinates = [
+        (x + 1) as X, //
+        (y - 1) as Y, //
+      ]
       yield coords
       yield* move(coords).downRight()
     },
 
     *down() {
       if (y <= 0) return undefined
-      const toY: Y = (y - 1) as Y //?
-      const coords: Coordinates = [x, toY] //?
+      const coords: Coordinates = [
+        x, //
+        (y - 1) as Y, //
+      ]
       yield coords
       yield* move(coords).down()
     },
 
     *downLeft() {
       if (x <= 0 || y <= 0) return undefined
-      const toX: X = (x - 1) as X //?
-      const toY: Y = (y - 1) as Y //?
-      const coords: Coordinates = [toX, toY] //?
+      const coords: Coordinates = [
+        (x - 1) as X, //
+        (y - 1) as Y, //
+      ]
       yield coords
       yield* move(coords).downLeft()
     },
 
     diagonallyDownLeft() {
-      coordinates //?
-      const downLeftIterable = this.downLeft() //?
-      const downLeft = downLeftIterable.next() //?
-      if (downLeft.done === false && downLeft.value !== undefined) {
-        return move(downLeft.value).diagonallyDownLeft() //?
+      const downLeftIterable = this.downLeft()
+      const { done, value } = downLeftIterable.next()
+      if (done === false && value !== undefined) {
+        return move(value).diagonallyDownLeft()
       }
-      return coordinates //?
+      return coordinates
     },
 
     *left() {
       if (x <= 0) return undefined
-      const toX: X = (x - 1) as X //?
-      const coords: Coordinates = [toX, y] //?
-      yield coords //?
+      const coords: Coordinates = [
+        (x - 1) as X, //
+        y, //
+      ]
+      yield coords
       yield* move(coords).left()
     },
 
     *upLeft() {
       if (x <= 0 || y >= 5) return
-      const toX: X = (x - 1) as X
-      const toY: Y = (y + 1) as Y
-      const coords: Coordinates = [toX, toY] //?
+      const coords: Coordinates = [
+        (x - 1) as X, //
+        (y + 1) as Y, //
+      ]
       yield coords
       yield* move(coords).upLeft()
     },
