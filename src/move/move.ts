@@ -13,7 +13,7 @@ interface NewCoordinates {
    */
   diagonallyDownLeft: () => void | Coordinates
   left: () => IterableIterator<void | Coordinates>
-  upLeft: () => void | Coordinates
+  upLeft: () => IterableIterator<void | Coordinates>
 }
 
 /**
@@ -95,11 +95,13 @@ export function move(coordinates: Coordinates): NewCoordinates {
       yield* move(coords).left()
     },
 
-    upLeft() {
+    *upLeft() {
       if (x <= 0 || y >= 5) return
       const toX: X = (x - 1) as X
       const toY: Y = (y + 1) as Y
-      return [toX, toY]
+      const coords: Coordinates = [toX, toY] //?
+      yield coords
+      yield* move(coords).upLeft()
     },
   }
 }
