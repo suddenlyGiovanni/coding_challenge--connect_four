@@ -5,6 +5,11 @@ interface NewCoordinates {
   upRight: () => IterableIterator<void | Coordinates>
   right: () => IterableIterator<void | Coordinates>
   downRight: () => IterableIterator<void | Coordinates>
+  /**
+   * walks the board diagonally down to the right to retrieve the coordinates
+   * of the most down to the right cell available for the provided input
+   */
+  diagonallyDownRight: () => Coordinates
   down: () => IterableIterator<void | Coordinates>
   downLeft: () => IterableIterator<void | Coordinates>
   /**
@@ -65,6 +70,14 @@ export function move(coordinates: Coordinates): NewCoordinates {
       ]
       yield coords
       yield* move(coords).downRight()
+    },
+
+    diagonallyDownRight() {
+      const { done, value } = this.downRight().next() //?
+      if (done === false && value !== undefined) {
+        return move(value).diagonallyDownRight()
+      }
+      return coordinates //?
     },
 
     *down() {
