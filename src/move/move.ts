@@ -11,7 +11,7 @@ interface NewCoordinates {
    * walks the board diagonally down to the left to retrieve the coordinates
    * of the most down to the left cell available for the provided input
    */
-  diagonallyDownLeft: () => void | Coordinates
+  diagonallyDownLeft: () => Coordinates
   left: () => IterableIterator<void | Coordinates>
   upLeft: () => IterableIterator<void | Coordinates>
 }
