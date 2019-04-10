@@ -161,6 +161,19 @@ describe('move', () => {
     })
   })
 
+  describe('diagonallyDownRight', () => {
+    it('returns original coordinate if already at the bottom end', () => {
+      expect(fromBottomRight.diagonallyDownRight()).toEqual([6, 0])
+      expect(fromBottomLeft.diagonallyDownRight()).toEqual([0, 0])
+    })
+
+    test('happy path', () => {
+      expect(fromTopLeft.diagonallyDownRight()).toEqual([5, 0])
+      expect(move([0, 4]).diagonallyDownRight()).toEqual([4, 0])
+      expect(move([3, 4]).diagonallyDownRight()).toEqual([6, 1])
+    })
+  })
+
   describe('left', () => {
     test('out of bounds', () => {
       expect(fromTopLeft.left().next()).toEqual({
