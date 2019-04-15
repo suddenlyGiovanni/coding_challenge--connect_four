@@ -1,4 +1,4 @@
-import { X, Y, Coordinates as Point } from 'MyTypes'
+import { X, Y, Point } from 'MyTypes'
 
 interface NewCoordinates {
   up: () => IterableIterator<Point>
@@ -21,65 +21,6 @@ interface NewCoordinates {
   upLeft: () => IterableIterator<Point>
 }
 
-function* up([x, y]: Point): IterableIterator<Point> {
-  const newPoint = [x, y + 1] as Point
-  if (y >= 5) return undefined
-  yield newPoint
-  yield* up(newPoint)
-}
-
-function* upRight([x, y]: Point): IterableIterator<Point> {
-  if (x >= 6 || y >= 5) return undefined
-  const newPoint = [x + 1, y + 1] as Point //?
-  yield newPoint
-  yield* upRight(newPoint)
-}
-
-function* right([x, y]: Point): IterableIterator<Point> {
-  if (x >= 6) return undefined
-  const newPoint = [x + 1, y] as Point //?
-  yield newPoint
-  yield* right(newPoint)
-}
-
-function* downRight([x, y]: Point): IterableIterator<Point> {
-  while (x < 6 && y > 0) {
-    const newPoint = [(x + 1) as X, (y - 1) as Y] as Point
-    // if (x === 5 || y === 1) return newPoint
-    yield newPoint
-    x++
-    y--
-  }
-}
-
-function* down([x, y]: Point): IterableIterator<Point> {
-  if (y <= 0) return undefined
-  const newPoint = [x, y - 1] as Point
-  yield newPoint
-  yield* down(newPoint)
-}
-
-function* downLeft([x, y]: Point): IterableIterator<Point> {
-  if (x <= 0 || y <= 0) return undefined
-  const newPoint = [x - 1, y - 1] as Point
-  yield newPoint
-  yield* downLeft(newPoint)
-}
-
-function* left([x, y]: Point): IterableIterator<Point> {
-  if (x <= 0) return undefined
-  const newPoint = [x - 1, y] as Point
-  yield newPoint
-  yield* left(newPoint)
-}
-
-function* upLeft([x, y]: Point): IterableIterator<Point> {
-  if (x <= 0 || y >= 5) return
-  const newPoint = [x - 1, y + 1] as Point
-  yield newPoint
-  yield* upLeft(newPoint)
-}
-
 /**
  * |  x-1, y-1  | x, y+1  | x+1, y+1  |
  * |  x-1, y    | x=0 y=0 | x+1, y    |
@@ -89,6 +30,62 @@ export function move(point: Point): NewCoordinates {
   const [x, y] = point
   if (x < 0 || x > 6) throw new TypeError('0 <= x <= 6')
   if (y < 0 || y > 5) throw new TypeError('0 <= y <= 5')
+
+  function* up([x, y]: Point): IterableIterator<Point> {
+    const newPoint = [x, y + 1] as Point
+    if (y >= 5) return undefined
+    yield newPoint
+    yield* up(newPoint)
+  }
+
+  function* upRight([x, y]: Point): IterableIterator<Point> {
+    if (x >= 6 || y >= 5) return undefined
+    const newPoint = [x + 1, y + 1] as Point //?
+    yield newPoint
+    yield* upRight(newPoint)
+  }
+
+  function* right([x, y]: Point): IterableIterator<Point> {
+    if (x >= 6) return undefined
+    const newPoint = [x + 1, y] as Point //?
+    yield newPoint
+    yield* right(newPoint)
+  }
+
+  function* downRight([x, y]: Point): IterableIterator<Point> {
+    if (x >= 6 || y <= 0) return undefined
+    const newPoint = [(x + 1) as X, (y - 1) as Y] as Point
+    yield newPoint
+    yield* downRight(newPoint)
+  }
+
+  function* down([x, y]: Point): IterableIterator<Point> {
+    if (y <= 0) return undefined
+    const newPoint = [x, y - 1] as Point
+    yield newPoint
+    yield* down(newPoint)
+  }
+
+  function* downLeft([x, y]: Point): IterableIterator<Point> {
+    if (x <= 0 || y <= 0) return undefined
+    const newPoint = [x - 1, y - 1] as Point
+    yield newPoint
+    yield* downLeft(newPoint)
+  }
+
+  function* left([x, y]: Point): IterableIterator<Point> {
+    if (x <= 0) return undefined
+    const newPoint = [x - 1, y] as Point
+    yield newPoint
+    yield* left(newPoint)
+  }
+
+  function* upLeft([x, y]: Point): IterableIterator<Point> {
+    if (x <= 0 || y >= 5) return
+    const newPoint = [x - 1, y + 1] as Point
+    yield newPoint
+    yield* upLeft(newPoint)
+  }
 
   return {
     up: () => up(point),
