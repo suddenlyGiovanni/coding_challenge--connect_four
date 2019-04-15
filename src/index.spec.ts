@@ -80,3 +80,11 @@ describe('checkMainAxis', () => {
     ).toEqual([[2, 1], [3, 1], [4, 1], [5, 1]])
   })
 })
+
+// describe('checkDiagonal', () => {
+//   const checkPlayerOne = checkDiagonal(Player.One)
+//   const checkPlayerOneTestBoard = checkPlayerOne(Fixture.testBoard)
+//   it('happyPath', () => {
+//     expect(checkPlayerOneTestBoard({ direction: 'upRight', coords: [0, 0] }))
+//   })
+// })

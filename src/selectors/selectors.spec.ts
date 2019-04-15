@@ -1,9 +1,10 @@
 import {
   getColumn,
-  getCell,
+  getCellValue,
   getRow,
   getDiagonalRight,
   getDiagonalLeft,
+  // getDiagonal,
 } from './selectors'
 import * as Fixture from '../fixture'
 import { Player } from '../index'
@@ -12,25 +13,25 @@ import { Point } from 'MyTypes'
 describe('getColumn', () => {
   it('happy path', () => {
     const getTestBoardColumn = getColumn(Fixture.testBoard)
-    expect(getTestBoardColumn(0)).toEqual(Fixture.testBoardColumn0)
-    expect(getTestBoardColumn(2)).toEqual(Fixture.testBoardColumn2)
-    expect(getTestBoardColumn(6)).toEqual([Player.One])
+    expect(getTestBoardColumn([0, 1])).toEqual(Fixture.testBoardColumn0)
+    expect(getTestBoardColumn([2, 3])).toEqual(Fixture.testBoardColumn2)
+    expect(getTestBoardColumn([6, 0])).toEqual([Player.One])
   })
 })
 
 describe('getRow', () => {
   it('happy path', () => {
     const getTestBoardRow = getRow(Fixture.testBoard)
-    expect(getTestBoardRow(1)).toEqual(Fixture.testBoardRow1)
+    expect(getTestBoardRow([0, 1])).toEqual(Fixture.testBoardRow1)
   })
 })
 
 describe('getCell', () => {
   it('happy path', () => {
-    const getTestBoardCell = getCell(Fixture.testBoard)
-    expect(getTestBoardCell(0, 0)).toBe(Player.One)
-    expect(getTestBoardCell(0, 1)).toBe(Player.Two)
-    expect(getTestBoardCell(6, 1)).toBe(undefined)
+    const getTestBoardCell = getCellValue(Fixture.testBoard)
+    expect(getTestBoardCell([0, 0])).toBe(Player.One)
+    expect(getTestBoardCell([0, 1])).toBe(Player.Two)
+    expect(getTestBoardCell([6, 1])).toBe(undefined)
   })
 })
 
@@ -76,4 +77,10 @@ describe('getDiagonal', () => {
       expect(getDiagonalLeft(bottomLeft)).toEqual([bottomLeft])
     })
   })
+
+  // describe('getDiagonal()', () => {
+  //   test('happy path', () => {
+  //     const temp = getDiagonal()
+  //   })
+  // })
 })
