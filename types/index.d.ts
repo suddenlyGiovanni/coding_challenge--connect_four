@@ -3,7 +3,7 @@ declare module 'MyTypes' {
 
   export type Y = 0 | 1 | 2 | 3 | 4 | 5
 
-  export type Coordinates = Readonly<[X, Y]>
+  export type Point = Readonly<[X, Y]>
 
   export type ConnectFour = Readonly<[[X, Y], [X, Y], [X, Y], [X, Y]]>
 

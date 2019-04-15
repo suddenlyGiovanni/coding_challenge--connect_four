@@ -7,7 +7,7 @@ import {
 } from './selectors'
 import * as Fixture from '../fixture'
 import { Player } from '../index'
-import { Coordinates } from 'MyTypes'
+import { Point } from 'MyTypes'
 
 describe('getColumn', () => {
   it('happy path', () => {
@@ -35,11 +35,11 @@ describe('getCell', () => {
 })
 
 describe('getDiagonal', () => {
-  const bottomLeft: Coordinates = [0, 0]
-  const bottomRight: Coordinates = [6, 0]
-  const topLeft: Coordinates = [0, 5]
-  const topRight: Coordinates = [6, 5]
-  describe('Diagonal', () => {
+  const bottomLeft: Point = [0, 0]
+  const bottomRight: Point = [6, 0]
+  const topLeft: Point = [0, 5]
+  const topRight: Point = [6, 5]
+  describe('getDiagonalRight', () => {
     test('happy path', () => {
       expect(getDiagonalRight(topRight)).toEqual(
         expect.arrayContaining([[1, 0], [2, 1], [3, 2], [4, 3], [5, 4], [6, 5]])
