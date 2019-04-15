@@ -1,4 +1,4 @@
-import { Board, Column, Row, ConnectFour, Coordinates } from 'MyTypes'
+import { Board, Column, Row, ConnectFour, Point } from 'MyTypes'
 
 import { getColumn, getRow } from './selectors/selectors'
 
@@ -35,14 +35,14 @@ export function checkMainAxis(
   coords,
 }: {
   axe: 'horizontal' | 'vertical'
-  coords: Coordinates
+  coords: Point
 }) => null | ConnectFour {
   return board => ({ axe, coords }) => {
     const [x, y] = coords
     const _axe: Row | Column =
       axe === 'horizontal'
-        ? getRow(board)(y) //?
-        : getColumn(board)(x) //?
+        ? getRow(board)(coords) //?
+        : getColumn(board)(coords) //?
 
     let arrayOfIndexes: number[] = [] //?
     // creates an array of all the player's checker
@@ -79,3 +79,20 @@ export function checkMainAxis(
       : ((contiguousArray.map(_y => [x, _y]) as unknown) as ConnectFour) //?
   }
 }
+
+// export function checkDiagonal(
+//   player: Player
+// ): (
+//   board: Board
+// ) => ({
+//   direction,
+//   coords,
+// }: {
+//   direction: 'upRight' | 'downRight'
+//   coords: Coordinates
+// }) => null | ConnectFour {
+//   return board => ({ direction, coords }) => {
+//     const [x, y] = coords
+//     let diagonal: number[]
+//   }
+// }
