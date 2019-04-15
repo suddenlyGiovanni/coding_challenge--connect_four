@@ -26,34 +26,107 @@ describe('move', () => {
   describe('up', () => {
     test('out of bounds at the top', () => {
       const upIterable = fromTopLeft.up() //?
-      expect(upIterable.next()).toEqual({ done: true, value: undefined })
+      expect(upIterable.next() /* ?*/).toStrictEqual({
+        done: true,
+        value: undefined,
+      })
+    })
+
+    test('edge case', () => {
+      const upIterable = move([0, 4]).up() //?
+      expect(
+        upIterable.next() //?
+      ).toStrictEqual({ done: false, value: [0, 5] })
+
+      expect(
+        upIterable.next() //?
+      ).toStrictEqual({ done: true, value: undefined })
     })
 
     test('happy path', () => {
-      const upIterable = fromBottomLeft.up() //?
-      expect(upIterable.next()).toEqual({ done: false, value: [0, 1] })
-      expect(upIterable.next()).toEqual({ done: false, value: [0, 2] })
-      expect(upIterable.next()).toEqual({ done: false, value: [0, 3] })
-      expect(upIterable.next()).toEqual({ done: false, value: [0, 4] })
-      expect(upIterable.next()).toEqual({ done: false, value: [0, 5] })
-      expect(upIterable.next()).toEqual({ done: true, value: undefined })
+      const upIterable = move([0, 0]).up() //?
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+      const next = () => upIterable.next()
+      expect(next()).toStrictEqual({ done: false, value: [0, 1] })
+      expect(next()).toStrictEqual({ done: false, value: [0, 2] })
+      expect(next()).toStrictEqual({ done: false, value: [0, 3] })
+      expect(next()).toStrictEqual({ done: false, value: [0, 4] })
+      expect(next()).toStrictEqual({ done: false, value: [0, 5] })
+      expect(next()).toStrictEqual({ done: true, value: undefined })
     })
   })
 
   describe('upRight', () => {
     test('out of bounds', () => {
-      expect(fromTopLeft.upRight().next().value).toBeUndefined()
-      expect(fromBottomRight.upRight().next().value).toBeUndefined()
-      expect(fromTopRight.upRight().next().value).toBeUndefined()
+      expect(fromTopLeft.upRight().next()).toStrictEqual({
+        done: true,
+        value: undefined,
+      })
+      expect(fromBottomRight.upRight().next()).toStrictEqual({
+        done: true,
+        value: undefined,
+      })
+      expect(fromTopRight.upRight().next()).toStrictEqual({
+        done: true,
+        value: undefined,
+      })
     })
+
+    test('temp', () => {
+      const tempIterable = move([1, 0]).upRight() //?
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+      const next = () => tempIterable.next()
+      expect(next()).toStrictEqual({
+        done: false,
+        value: [2, 1],
+      })
+      expect(next()).toStrictEqual({
+        done: false,
+        value: [3, 2],
+      })
+      expect(next()).toStrictEqual({
+        done: false,
+        value: [4, 3],
+      })
+      expect(next()).toStrictEqual({
+        done: false,
+        value: [5, 4],
+      })
+
+      expect(next()).toStrictEqual({
+        done: false,
+        value: [6, 5],
+      })
+    })
+
     test('happy path', () => {
       const upRightIterable = fromBottomLeft.upRight() //?
-      expect(upRightIterable.next()).toEqual({ done: false, value: [1, 1] })
-      expect(upRightIterable.next()).toEqual({ done: false, value: [2, 2] })
-      expect(upRightIterable.next()).toEqual({ done: false, value: [3, 3] })
-      expect(upRightIterable.next()).toEqual({ done: false, value: [4, 4] })
-      expect(upRightIterable.next()).toEqual({ done: false, value: [5, 5] })
-      expect(upRightIterable.next()).toEqual({ done: true, value: undefined })
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+      const next = () => upRightIterable.next()
+      expect(next()).toStrictEqual({
+        done: false,
+        value: [1, 1],
+      })
+      expect(next()).toStrictEqual({
+        done: false,
+        value: [2, 2],
+      })
+      expect(next()).toStrictEqual({
+        done: false,
+        value: [3, 3],
+      })
+      expect(next()).toStrictEqual({
+        done: false,
+        value: [4, 4],
+      })
+      expect(next()).toStrictEqual({
+        done: false,
+        value: [5, 5],
+      })
+      expect(next()).toStrictEqual({
+        done: true,
+        value: undefined,
+      })
     })
   })
 
@@ -66,58 +139,81 @@ describe('move', () => {
     })
     test('happy path', () => {
       const rightIterable = fromBottomLeft.right() //?
-      expect(rightIterable.next()).toEqual({ done: false, value: [1, 0] })
-      expect(rightIterable.next()).toEqual({ done: false, value: [2, 0] })
-      expect(rightIterable.next()).toEqual({ done: false, value: [3, 0] })
-      expect(rightIterable.next()).toEqual({ done: false, value: [4, 0] })
-      expect(rightIterable.next()).toEqual({ done: false, value: [5, 0] })
-      expect(rightIterable.next()).toEqual({ done: false, value: [6, 0] })
-      expect(rightIterable.next()).toEqual({ done: true, value: undefined })
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+      const next = () => rightIterable.next()
+      expect(next()).toStrictEqual({ done: false, value: [1, 0] })
+      expect(next()).toStrictEqual({ done: false, value: [2, 0] })
+      expect(next()).toStrictEqual({ done: false, value: [3, 0] })
+      expect(next()).toStrictEqual({ done: false, value: [4, 0] })
+      expect(next()).toStrictEqual({ done: false, value: [5, 0] })
+      expect(next()).toStrictEqual({ done: false, value: [6, 0] })
+      expect(next()).toStrictEqual({ done: true, value: undefined })
     })
   })
 
   describe('downRight', () => {
     test('out of bounds', () => {
-      expect(fromTopRight.downRight().next()).toEqual({
+      expect(fromTopRight.downRight().next()).toStrictEqual({
         done: true,
         value: undefined,
       })
 
-      expect(fromBottomLeft.downRight().next()).toEqual({
+      expect(fromBottomLeft.downRight().next()).toStrictEqual({
         done: true,
         value: undefined,
       })
-      expect(fromBottomRight.downRight().next()).toEqual({
+      expect(fromBottomRight.downRight().next()).toStrictEqual({
         done: true,
         value: undefined,
       })
     })
     test('happy path', () => {
       const downRightIterable = fromTopLeft.downRight() //?
-      expect(downRightIterable.next()).toEqual({ done: false, value: [1, 4] })
-      expect(downRightIterable.next()).toEqual({ done: false, value: [2, 3] })
-      expect(downRightIterable.next()).toEqual({ done: false, value: [3, 2] })
-      expect(downRightIterable.next()).toEqual({ done: false, value: [4, 1] })
-      expect(downRightIterable.next()).toEqual({ done: false, value: [5, 0] })
-      expect(downRightIterable.next()).toEqual({ done: true, value: undefined })
+      expect(downRightIterable.next()).toStrictEqual({
+        done: false,
+        value: [1, 4],
+      })
+      expect(downRightIterable.next()).toStrictEqual({
+        done: false,
+        value: [2, 3],
+      })
+      expect(downRightIterable.next()).toStrictEqual({
+        done: false,
+        value: [3, 2],
+      })
+      expect(downRightIterable.next()).toStrictEqual({
+        done: false,
+        value: [4, 1],
+      })
+      expect(downRightIterable.next()).toStrictEqual({
+        done: false,
+        value: [5, 0],
+      })
+      expect(downRightIterable.next()).toStrictEqual({
+        done: true,
+        value: undefined,
+      })
     })
   })
 
   describe('down', () => {
     test('out of bounds', () => {
-      expect(fromBottomLeft.down().next()).toEqual({
+      expect(fromBottomLeft.down().next()).toStrictEqual({
         done: true,
         value: undefined,
       })
     })
     test('happy path', () => {
       const downIterable = fromTopLeft.down() //?
-      expect(downIterable.next()).toEqual({ done: false, value: [0, 4] })
-      expect(downIterable.next()).toEqual({ done: false, value: [0, 3] })
-      expect(downIterable.next()).toEqual({ done: false, value: [0, 2] })
-      expect(downIterable.next()).toEqual({ done: false, value: [0, 1] })
-      expect(downIterable.next()).toEqual({ done: false, value: [0, 0] })
-      expect(downIterable.next()).toEqual({ done: true, value: undefined })
+      expect(downIterable.next()).toStrictEqual({ done: false, value: [0, 4] })
+      expect(downIterable.next()).toStrictEqual({ done: false, value: [0, 3] })
+      expect(downIterable.next()).toStrictEqual({ done: false, value: [0, 2] })
+      expect(downIterable.next()).toStrictEqual({ done: false, value: [0, 1] })
+      expect(downIterable.next()).toStrictEqual({ done: false, value: [0, 0] })
+      expect(downIterable.next()).toStrictEqual({
+        done: true,
+        value: undefined,
+      })
     })
   })
 
@@ -139,12 +235,32 @@ describe('move', () => {
 
     test('happy path', () => {
       const downLeftIterable = fromTopRight.downLeft() //?
-      expect(downLeftIterable.next()).toEqual({ done: false, value: [5, 4] })
-      expect(downLeftIterable.next()).toEqual({ done: false, value: [4, 3] })
-      expect(downLeftIterable.next()).toEqual({ done: false, value: [3, 2] })
-      expect(downLeftIterable.next()).toEqual({ done: false, value: [2, 1] })
-      expect(downLeftIterable.next()).toEqual({ done: false, value: [1, 0] })
-      expect(downLeftIterable.next()).toEqual({ done: true, value: undefined })
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+      const next = () => downLeftIterable.next()
+      expect(next()).toStrictEqual({
+        done: false,
+        value: [5, 4],
+      })
+      expect(next()).toStrictEqual({
+        done: false,
+        value: [4, 3],
+      })
+      expect(next()).toStrictEqual({
+        done: false,
+        value: [3, 2],
+      })
+      expect(next()).toStrictEqual({
+        done: false,
+        value: [2, 1],
+      })
+      expect(next()).toStrictEqual({
+        done: false,
+        value: [1, 0],
+      })
+      expect(next()).toStrictEqual({
+        done: true,
+        value: undefined,
+      })
     })
   })
 
@@ -176,7 +292,7 @@ describe('move', () => {
 
   describe('left', () => {
     test('out of bounds', () => {
-      expect(fromTopLeft.left().next()).toEqual({
+      expect(fromTopLeft.left().next()).toStrictEqual({
         done: true,
         value: undefined,
       })
@@ -184,13 +300,18 @@ describe('move', () => {
 
     test('happy path', () => {
       const leftIterable = fromTopRight.left() //?
-      expect(leftIterable.next()).toEqual({ done: false, value: [5, 5] })
-      expect(leftIterable.next()).toEqual({ done: false, value: [4, 5] })
-      expect(leftIterable.next()).toEqual({ done: false, value: [3, 5] })
-      expect(leftIterable.next()).toEqual({ done: false, value: [2, 5] })
-      expect(leftIterable.next()).toEqual({ done: false, value: [1, 5] })
-      expect(leftIterable.next()).toEqual({ done: false, value: [0, 5] })
-      expect(leftIterable.next()).toEqual({ done: true, value: undefined })
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+      const next = () => leftIterable.next()
+      expect(next()).toStrictEqual({ done: false, value: [5, 5] })
+      expect(next()).toStrictEqual({ done: false, value: [4, 5] })
+      expect(next()).toStrictEqual({ done: false, value: [3, 5] })
+      expect(next()).toStrictEqual({ done: false, value: [2, 5] })
+      expect(next()).toStrictEqual({ done: false, value: [1, 5] })
+      expect(next()).toStrictEqual({ done: false, value: [0, 5] })
+      expect(next()).toStrictEqual({
+        done: true,
+        value: undefined,
+      })
     })
   })
 
@@ -202,12 +323,14 @@ describe('move', () => {
     })
     test('happy path', () => {
       const upLeftIterable = fromBottomRight.upLeft() //?
-      expect(upLeftIterable.next()).toEqual({ done: false, value: [5, 1] })
-      expect(upLeftIterable.next()).toEqual({ done: false, value: [4, 2] })
-      expect(upLeftIterable.next()).toEqual({ done: false, value: [3, 3] })
-      expect(upLeftIterable.next()).toEqual({ done: false, value: [2, 4] })
-      expect(upLeftIterable.next()).toEqual({ done: false, value: [1, 5] })
-      expect(upLeftIterable.next()).toEqual({ done: true, value: undefined })
+      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+      const next = () => upLeftIterable.next()
+      expect(next()).toEqual({ done: false, value: [5, 1] })
+      expect(next()).toEqual({ done: false, value: [4, 2] })
+      expect(next()).toEqual({ done: false, value: [3, 3] })
+      expect(next()).toEqual({ done: false, value: [2, 4] })
+      expect(next()).toEqual({ done: false, value: [1, 5] })
+      expect(next()).toEqual({ done: true, value: undefined })
     })
   })
 })
