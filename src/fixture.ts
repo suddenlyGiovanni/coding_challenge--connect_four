@@ -1,4 +1,4 @@
-import { Board, Column, Row } from 'MyTypes'
+import { Board, Column, Row, ColumnValues, RowValues } from 'MyTypes'
 import { Player } from './index'
 
 export const emptyColumn: Column = []
@@ -57,6 +57,13 @@ export const testBoardColumn0: Column = [
   Player.Two,
 ]
 
+export const testBoardColumn0Values: ColumnValues = [
+  { point: [0, 0], value: Player.One },
+  { point: [0, 1], value: Player.Two },
+  { point: [0, 2], value: Player.One },
+  { point: [0, 3], value: Player.Two },
+]
+
 /**
  * testBoard column 2
  * Player One connect four vertical:
@@ -69,6 +76,15 @@ export const testBoardColumn2: Column = [
   Player.One,
   Player.One,
   Player.One,
+]
+
+export const testBoardColumn2Values: ColumnValues = [
+  { point: [2, 0], value: Player.One },
+  { point: [2, 1], value: Player.Two },
+  { point: [2, 2], value: Player.One },
+  { point: [2, 3], value: Player.One },
+  { point: [2, 4], value: Player.One },
+  { point: [2, 5], value: Player.One },
 ]
 
 export const testBoardRow0: Row = [
@@ -96,6 +112,15 @@ export const testBoardRow1: Row = [
   undefined,
 ]
 
+export const testBoardRow1Values: RowValues = [
+  { point: [0, 1], value: Player.Two },
+  { point: [1, 1], value: Player.One },
+  { point: [2, 1], value: Player.Two },
+  { point: [3, 1], value: Player.Two },
+  { point: [4, 1], value: Player.Two },
+  { point: [5, 1], value: Player.Two },
+  { point: [6, 1], value: undefined },
+]
 /**
  * testBoard diagonal upward to the right, starting form (x=0, y=0)
  * Player One connect four diagonal up-right:
