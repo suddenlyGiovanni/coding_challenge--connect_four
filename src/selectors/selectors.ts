@@ -1,11 +1,21 @@
-import { Board, Column, Row, Cell, Point } from 'MyTypes'
+import {
+  Board,
+  Column,
+  Row,
+  Cell,
+  Point,
+  CellTemp,
+  DiagonalValues,
+} from 'MyTypes'
 import { move } from '../move/move'
 
-export function getColumn(board: Board): (point: Point) => Column {
+type DiagonalDirection = 'left' | 'right'
+
+export function getColumnValues(board: Board): (point: Point) => Column {
   return ([x]) => board[x]
 }
 
-export function getRow(board: Board): (point: Point) => Row {
+export function getRowValues(board: Board): (point: Point) => Row {
   return ([, y]) => board.map(column => column[y])
 }
 
@@ -31,4 +41,28 @@ export function getDiagonalLeft(point: Point): ReadonlyArray<Point> {
   return leftDiagonalCoordinates
 }
 
-// export function getDiagonal(board: Board) {}
+export function getDiagonal(
+  point: Point
+): (diagonal: DiagonalDirection) => ReadonlyArray<Point> {
+  return diagonal =>
+    diagonal === 'left' //? diagonal
+      ? getDiagonalLeft(point)
+      : getDiagonalRight(point)
+}
+
+export function getDiagonalValues(
+  board: Board
+): (point: Point) => (diagonal: DiagonalDirection) => DiagonalValues {
+  return point => diagonal => {
+    const diagonalPoints = getDiagonal(point)(diagonal)
+
+    const diagonalBoardCells = diagonalPoints.map(
+      (point): CellTemp => ({
+        point: point,
+        value: getCellValue(board)(point),
+      })
+    )
+
+    return diagonalBoardCells //?
+  }
+}

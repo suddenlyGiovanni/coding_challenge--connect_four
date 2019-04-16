@@ -5,7 +5,7 @@ declare module 'MyTypes' {
 
   export type Point = Readonly<[X, Y]>
 
-  export type ConnectFour = Readonly<[[X, Y], [X, Y], [X, Y], [X, Y]]>
+  export type ConnectFour = Readonly<[Point, Point, Point, Point]>
 
   export enum Player {
     One = 1,
@@ -17,6 +17,20 @@ declare module 'MyTypes' {
    * The Checker can have to belong to one of the two Players`
    */
   export type Cell = Readonly<Player> | void
+
+  export interface CellTemp {
+    point: Point
+    value: Player | void
+  }
+
+  export type DiagonalValues =
+    | CellTemp[]
+    | [CellTemp]
+    | [CellTemp, CellTemp]
+    | [CellTemp, CellTemp, CellTemp]
+    | [CellTemp, CellTemp, CellTemp, CellTemp]
+    | [CellTemp, CellTemp, CellTemp, CellTemp, CellTemp]
+    | [CellTemp, CellTemp, CellTemp, CellTemp, CellTemp, CellTemp]
 
   /**
    * A Column is composed of 6 Cells
