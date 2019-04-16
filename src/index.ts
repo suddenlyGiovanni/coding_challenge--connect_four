@@ -1,6 +1,6 @@
 import { Board, Column, Row, ConnectFour, Point } from 'MyTypes'
 
-import { getColumn, getRow } from './selectors/selectors'
+import { getColumnValues, getRowValues } from './selectors/selectors'
 
 export enum Player {
   One = 1,
@@ -41,8 +41,8 @@ export function checkMainAxis(
     const [x, y] = coords
     const _axe: Row | Column =
       axe === 'horizontal'
-        ? getRow(board)(coords) //?
-        : getColumn(board)(coords) //?
+        ? getRowValues(board)(coords) //?
+        : getColumnValues(board)(coords) //?
 
     let arrayOfIndexes: number[] = [] //?
     // creates an array of all the player's checker

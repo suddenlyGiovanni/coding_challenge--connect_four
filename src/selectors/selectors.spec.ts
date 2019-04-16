@@ -1,10 +1,11 @@
 import {
-  getColumn,
+  getColumnValues,
   getCellValue,
-  getRow,
+  getRowValues,
   getDiagonalRight,
   getDiagonalLeft,
-  // getDiagonal,
+  getDiagonal,
+  getDiagonalValues,
 } from './selectors'
 import * as Fixture from '../fixture'
 import { Player } from '../index'
@@ -12,7 +13,7 @@ import { Point } from 'MyTypes'
 
 describe('getColumn', () => {
   it('happy path', () => {
-    const getTestBoardColumn = getColumn(Fixture.testBoard)
+    const getTestBoardColumn = getColumnValues(Fixture.testBoard)
     expect(getTestBoardColumn([0, 1])).toEqual(Fixture.testBoardColumn0)
     expect(getTestBoardColumn([2, 3])).toEqual(Fixture.testBoardColumn2)
     expect(getTestBoardColumn([6, 0])).toEqual([Player.One])
@@ -21,7 +22,7 @@ describe('getColumn', () => {
 
 describe('getRow', () => {
   it('happy path', () => {
-    const getTestBoardRow = getRow(Fixture.testBoard)
+    const getTestBoardRow = getRowValues(Fixture.testBoard)
     expect(getTestBoardRow([0, 1])).toEqual(Fixture.testBoardRow1)
   })
 })
@@ -78,9 +79,47 @@ describe('getDiagonal', () => {
     })
   })
 
-  // describe('getDiagonal()', () => {
-  //   test('happy path', () => {
-  //     const temp = getDiagonal()
-  //   })
-  // })
+  describe('getDiagonal()', () => {
+    test('happy path', () => {
+      const point = [3, 2] as Point
+      const diagonal = getDiagonal(point)
+
+      expect(diagonal('left')).toEqual(
+        expect.arrayContaining([[0, 5], [1, 4], [2, 3], [3, 2], [4, 1], [5, 0]])
+      )
+
+      expect(diagonal('right')).toEqual(
+        expect.arrayContaining([[1, 0], [2, 1], [3, 2], [4, 3], [5, 4], [6, 5]])
+      )
+    })
+  })
+})
+
+describe('getDiagonalValues', () => {
+  test('happy path', () => {
+    const board = Fixture.testBoard
+    const point = getDiagonalValues(board)
+    const diag = point([1, 1])
+    const valuesRight = diag('right')
+    expect(valuesRight).toEqual(
+      expect.arrayContaining([
+        { point: [0, 0], value: 1 },
+        { point: [1, 1], value: 1 },
+        { point: [2, 2], value: 1 },
+        { point: [3, 3], value: 1 },
+        { point: [4, 4], value: undefined },
+        { point: [5, 5], value: undefined },
+      ])
+    )
+
+    const valueLeft = diag('left')
+
+    expect(valueLeft).toEqual(
+      expect.arrayContaining([
+        { point: [2, 0], value: Player.One },
+        { point: [1, 1], value: Player.One },
+        { point: [0, 2], value: Player.One },
+      ])
+    )
+  })
 })
