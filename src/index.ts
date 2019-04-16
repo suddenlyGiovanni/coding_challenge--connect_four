@@ -1,4 +1,11 @@
-import { Board, Column, Row, ConnectFour, Point } from 'MyTypes'
+import {
+  Board,
+  Column,
+  ConnectFour,
+  Point,
+  RowValues,
+  ColumnValues,
+} from 'MyTypes'
 
 import { getColumnValues, getRowValues } from './selectors/selectors'
 
@@ -39,16 +46,16 @@ export function checkMainAxis(
 }) => null | ConnectFour {
   return board => ({ axe, coords }) => {
     const [x, y] = coords
-    const _axe: Row | Column =
+    const values: RowValues | ColumnValues =
       axe === 'horizontal'
         ? getRowValues(board)(coords) //?
         : getColumnValues(board)(coords) //?
 
     let arrayOfIndexes: number[] = [] //?
     // creates an array of all the player's checker
-    for (let index = 0; index < _axe.length; index++) {
-      const cell = _axe[index]
-      if (cell === player) {
+    for (let index = 0; index < values.length; index++) {
+      const cell = values[index]
+      if (cell.value === player) {
         arrayOfIndexes.push(index)
       }
     }

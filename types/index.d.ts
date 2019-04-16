@@ -3,7 +3,7 @@ declare module 'MyTypes' {
 
   export type Y = 0 | 1 | 2 | 3 | 4 | 5
 
-  export type Point = Readonly<[X, Y]>
+  export type Point = [X, Y]
 
   export type ConnectFour = Readonly<[Point, Point, Point, Point]>
 
@@ -18,19 +18,19 @@ declare module 'MyTypes' {
    */
   export type Cell = Readonly<Player> | void
 
-  export interface CellTemp {
+  export interface CellValue {
     point: Point
     value: Player | void
   }
 
   export type DiagonalValues =
-    | CellTemp[]
-    | [CellTemp]
-    | [CellTemp, CellTemp]
-    | [CellTemp, CellTemp, CellTemp]
-    | [CellTemp, CellTemp, CellTemp, CellTemp]
-    | [CellTemp, CellTemp, CellTemp, CellTemp, CellTemp]
-    | [CellTemp, CellTemp, CellTemp, CellTemp, CellTemp, CellTemp]
+    | CellValue[]
+    | [CellValue]
+    | [CellValue, CellValue]
+    | [CellValue, CellValue, CellValue]
+    | [CellValue, CellValue, CellValue, CellValue]
+    | [CellValue, CellValue, CellValue, CellValue, CellValue]
+    | [CellValue, CellValue, CellValue, CellValue, CellValue, CellValue]
 
   /**
    * A Column is composed of 6 Cells
@@ -49,6 +49,15 @@ declare module 'MyTypes' {
     | [Cell, Cell, Cell, Cell, Cell, Cell]
   >
 
+  export type ColumnValues =
+    | CellValue[]
+    | [CellValue]
+    | [CellValue, CellValue]
+    | [CellValue, CellValue, CellValue]
+    | [CellValue, CellValue, CellValue, CellValue]
+    | [CellValue, CellValue, CellValue, CellValue, CellValue]
+    | [CellValue, CellValue, CellValue, CellValue, CellValue, CellValue]
+
   /**
    * A Row is composed of 7 Cells
    * it can be represented as a tuple of 7 Cells
@@ -65,6 +74,24 @@ declare module 'MyTypes' {
     | [Cell, Cell, Cell, Cell, Cell, Cell]
     | [Cell, Cell, Cell, Cell, Cell, Cell, Cell]
   >
+
+  export type RowValues =
+    | CellValue[]
+    | [CellValue]
+    | [CellValue, CellValue]
+    | [CellValue, CellValue, CellValue]
+    | [CellValue, CellValue, CellValue, CellValue]
+    | [CellValue, CellValue, CellValue, CellValue, CellValue]
+    | [CellValue, CellValue, CellValue, CellValue, CellValue, CellValue]
+    | [
+        CellValue,
+        CellValue,
+        CellValue,
+        CellValue,
+        CellValue,
+        CellValue,
+        CellValue
+      ]
 
   /*
   Board is a grid of 7*6 and can be represented as `two dimensional array`

@@ -14,16 +14,18 @@ import { Point } from 'MyTypes'
 describe('getColumn', () => {
   it('happy path', () => {
     const getTestBoardColumn = getColumnValues(Fixture.testBoard)
-    expect(getTestBoardColumn([0, 1])).toEqual(Fixture.testBoardColumn0)
-    expect(getTestBoardColumn([2, 3])).toEqual(Fixture.testBoardColumn2)
-    expect(getTestBoardColumn([6, 0])).toEqual([Player.One])
+    expect(getTestBoardColumn([0, 1])).toEqual(Fixture.testBoardColumn0Values)
+    expect(getTestBoardColumn([2, 3])).toEqual(Fixture.testBoardColumn2Values)
+    expect(getTestBoardColumn([6, 0])).toEqual([
+      { point: [6, 0], value: Player.One },
+    ])
   })
 })
 
-describe('getRow', () => {
+describe('getRowValues', () => {
   it('happy path', () => {
     const getTestBoardRow = getRowValues(Fixture.testBoard)
-    expect(getTestBoardRow([0, 1])).toEqual(Fixture.testBoardRow1)
+    expect(getTestBoardRow([0, 1])).toEqual(Fixture.testBoardRow1Values)
   })
 })
 
