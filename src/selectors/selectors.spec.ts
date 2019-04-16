@@ -27,12 +27,21 @@ describe('getRow', () => {
   })
 })
 
-describe('getCell', () => {
+describe('getCellValue', () => {
   it('happy path', () => {
     const getTestBoardCell = getCellValue(Fixture.testBoard)
-    expect(getTestBoardCell([0, 0])).toBe(Player.One)
-    expect(getTestBoardCell([0, 1])).toBe(Player.Two)
-    expect(getTestBoardCell([6, 1])).toBe(undefined)
+    expect(getTestBoardCell([0, 0])).toEqual({
+      point: [0, 0],
+      value: Player.One,
+    })
+    expect(getTestBoardCell([0, 1])).toEqual({
+      point: [0, 1],
+      value: Player.Two,
+    })
+    expect(getTestBoardCell([6, 1])).toEqual({
+      point: [6, 1],
+      value: undefined,
+    })
   })
 })
 
