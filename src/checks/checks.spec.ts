@@ -1,7 +1,7 @@
 import * as Fixture from '../fixture'
 
 import { Player } from '../index'
-import { checkColumn, checkRow } from './checks'
+import { checkColumn, checkRow, checkDiagonalRight } from './checks'
 
 describe('checkColumn', () => {
   it('returns `null` if no match are found for the desired column', () => {
@@ -64,5 +64,37 @@ describe('checkRow', () => {
         point: [0, 1],
       })
     ).toEqual([[2, 1], [3, 1], [4, 1], [5, 1]])
+  })
+})
+
+describe('checkDiagonalRight', () => {
+  // it('returns `null` if no match are found for the desired `right diagonal`', () => {
+  //   expect(
+  //     checkDiagonalRight({
+  //       player: Player.Two,
+  //       board: Fixture.testBoard,
+  //       point: [0, 1],
+  //     }) //?
+  //   ).toBeNull()
+  // })
+
+  // it('returns `null` if it finds 4 non consecutive cells', () => {
+  //   expect(
+  //     checkDiagonalRight({
+  //       board: Fixture.testBoard,
+  //       player: Player.One,
+  //       point: [0, 0],
+  //     })
+  //   ).toBe(null)
+  // })
+
+  it('returns a two dimensional array containing the coordinates of the winning checkers on the diagonal right axe as a tuple [x, y]', () => {
+    expect(
+      checkDiagonalRight({
+        board: Fixture.testBoard,
+        player: Player.One,
+        point: [0, 0],
+      })
+    ).toEqual([[0, 0], [1, 1], [2, 2], [3, 3]])
   })
 })
