@@ -1,10 +1,15 @@
+import * as R from 'ramda'
 import { Player, Board, Point, ConnectFour } from 'MyTypes'
 import {
   getColumnValues,
   getY,
   getRowValues,
   getX,
+  getDiagonalValues,
+  getPoint,
 } from '../selectors/selectors'
+
+import { move } from '../move/move'
 
 export function checkColumn({
   player,
@@ -68,4 +73,49 @@ export function checkRow({
   if (contiguousValues.length < 4) return null
   // connect four! return the winning cells
   return (contiguousValues.map(cell => cell.point) as unknown) as ConnectFour
+}
+
+export function checkDiagonalRight({
+  player,
+  board,
+  point,
+}: {
+  player: Player
+  board: Board
+  point: Point
+}): null | ConnectFour {
+  const values = getDiagonalValues(board)(point)('right') //?
+  const playersValues = values.filter(el => el.value === player) //?
+  // early returns if the total number of player checker is lower than the require victory condition
+  if (playersValues.length < 4) return null
+  const contiguousValues = playersValues.filter((current, index, array) => {
+    const previous = array[index - 1] //?
+    const next = array[index + 1] //?
+    const currentPoint = getPoint(current) //?
+    const nextPoint = getPoint(next) //?
+    const previousPoint = getPoint(previous) //?
+
+    previousPoint //?
+    currentPoint //?
+    nextPoint //?
+
+    if (!previousPoint && currentPoint) {
+      return R.equals(move(currentPoint)._upRight, nextPoint) //?
+    }
+
+    if (!next && currentPoint) {
+      return R.equals(move(currentPoint)._downLeft, previousPoint) //?
+    }
+
+    if (currentPoint) {
+      return (
+        R.equals(move(currentPoint)._downLeft, previousPoint) ||
+        R.equals(move(currentPoint)._upRight, nextPoint)
+      )
+    }
+  })
+
+  contiguousValues //?
+  if (contiguousValues.length !== 4) return null
+  return (contiguousValues.map(el => el.point) as unknown) as ConnectFour //?
 }
