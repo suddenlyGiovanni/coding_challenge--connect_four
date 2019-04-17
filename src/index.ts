@@ -1,13 +1,4 @@
-import {
-  Board,
-  Column,
-  ConnectFour,
-  Point,
-  RowValues,
-  ColumnValues,
-} from 'MyTypes'
-
-import { getColumnValues, getRowValues } from './selectors/selectors'
+import { Board, Column } from 'MyTypes'
 
 export enum Player {
   One = 1,
@@ -32,74 +23,3 @@ export function updateColumn(player: Player, column: Column): Column {
   _column.push(player)
   return _column //?
 }
-
-export function checkMainAxis(
-  player: Player
-): (
-  board: Board
-) => ({
-  axe,
-  coords,
-}: {
-  axe: 'horizontal' | 'vertical'
-  coords: Point
-}) => null | ConnectFour {
-  return board => ({ axe, coords }) => {
-    const [x, y] = coords
-    const values: RowValues | ColumnValues =
-      axe === 'horizontal'
-        ? getRowValues(board)(coords) //?
-        : getColumnValues(board)(coords) //?
-
-    let arrayOfIndexes: number[] = [] //?
-    // creates an array of all the player's checker
-    for (let index = 0; index < values.length; index++) {
-      const cell = values[index]
-      if (cell.value === player) {
-        arrayOfIndexes.push(index)
-      }
-    }
-    // early returns if the total number of player checker is lower than the require victory condition
-    if (arrayOfIndexes.length < 4) {
-      arrayOfIndexes //?
-      return null
-    }
-    arrayOfIndexes //?
-    // looks contiguous indexes
-    const contiguousArray = arrayOfIndexes.filter((current, index, array) => {
-      const previous: number = array[index - 1] //?
-      current //?
-      const next: number = array[index + 1] //?
-      if (!previous) {
-        return current + 1 === next //?
-      }
-      if (!next) {
-        return current - 1 === previous //?
-      }
-      return current - 1 === previous || current + 1 === next
-    }) //?
-
-    if (contiguousArray.length !== 4) return null
-
-    return axe === 'horizontal'
-      ? ((contiguousArray.map(_x => [_x, y]) as unknown) as ConnectFour) //?
-      : ((contiguousArray.map(_y => [x, _y]) as unknown) as ConnectFour) //?
-  }
-}
-
-// export function checkDiagonal(
-//   player: Player
-// ): (
-//   board: Board
-// ) => ({
-//   direction,
-//   coords,
-// }: {
-//   direction: 'upRight' | 'downRight'
-//   coords: Coordinates
-// }) => null | ConnectFour {
-//   return board => ({ direction, coords }) => {
-//     const [x, y] = coords
-//     let diagonal: number[]
-//   }
-// }
