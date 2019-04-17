@@ -5,10 +5,35 @@ import {
   DiagonalValues,
   ColumnValues,
   RowValues,
+  Player,
+  Y,
+  X,
 } from 'MyTypes'
 import { move } from '../move/move'
 
 type DiagonalDirection = 'left' | 'right'
+
+export function getPoint(cellValue: CellValue | undefined): void | Point {
+  return cellValue && cellValue.point
+}
+
+export function getPlayer(cellValue: CellValue | undefined): void | Player {
+  return cellValue && cellValue.value
+}
+
+export function getY(cellValue: CellValue | undefined): void | Y {
+  const point = getPoint(cellValue)
+  if (!point) return undefined
+  const [, y] = point
+  return y
+}
+
+export function getX(cellValue: CellValue | undefined): void | X {
+  const point = getPoint(cellValue)
+  if (!point) return undefined
+  const [x] = point
+  return x
+}
 
 export function getColumnValues(
   board: Board

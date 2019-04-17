@@ -6,10 +6,51 @@ import {
   getDiagonalLeft,
   getDiagonal,
   getDiagonalValues,
+  getPoint,
+  getPlayer,
+  getY,
+  getX,
 } from './selectors'
 import * as Fixture from '../fixture'
 import { Player } from '../index'
 import { Point } from 'MyTypes'
+
+describe('getPoint', () => {
+  it('returns `undefined` if provided with a undefined CellValue', () => {
+    expect(getPoint(undefined)).toBeUndefined()
+  })
+
+  test('happy path', () => {
+    expect(getPoint({ point: [0, 0], value: undefined })).toEqual([0, 0])
+  })
+})
+
+describe('getPlayer', () => {
+  it('returns `undefined` if provided with a undefined CellValue', () => {
+    expect(getPlayer(undefined)).toBeUndefined()
+  })
+  test('happy path', () => {
+    expect(getPlayer({ point: [0, 0], value: Player.Two })).toBe(Player.Two)
+  })
+})
+
+describe('getY', () => {
+  it('returns `undefined` if provided with a undefined CellValue', () => {
+    expect(getY(undefined)).toBeUndefined()
+  })
+  test('happy path', () => {
+    expect(getY({ point: [0, 4], value: Player.One })).toBe(4)
+  })
+})
+
+describe('getX', () => {
+  it('returns `undefined` if provided with a undefined CellValue', () => {
+    expect(getX(undefined)).toBeUndefined()
+  })
+  test('happy path', () => {
+    expect(getX({ point: [5, 4], value: undefined })).toBe(5)
+  })
+})
 
 describe('getColumn', () => {
   it('happy path', () => {
