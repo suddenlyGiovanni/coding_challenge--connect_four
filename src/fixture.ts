@@ -42,12 +42,12 @@ export const emptyBoard: Board = [[], [], [], [], [], [], []]
 
 export const testBoard: Board = [
   [Player.One, Player.Two, Player.One, Player.Two],
-  [Player.One, Player.One, Player.Two],
+  [Player.One, Player.One, Player.Two, Player.One],
   [Player.One, Player.Two, Player.One, Player.One, Player.One, Player.One],
   [Player.Two, Player.Two, Player.One, Player.One, Player.Two, Player.Two],
-  [Player.One, Player.Two, Player.Two, Player.One],
+  [Player.One, Player.Two, Player.Two, Player.One, Player.Two, Player.Two],
   [Player.Two, Player.Two, Player.One],
-  [Player.One],
+  [Player.One, Player.One],
 ]
 
 export const testBoardColumn0: Column = [
@@ -119,7 +119,7 @@ export const testBoardRow1Values: RowValues = [
   { point: [3, 1], value: Player.Two },
   { point: [4, 1], value: Player.Two },
   { point: [5, 1], value: Player.Two },
-  { point: [6, 1], value: undefined },
+  { point: [6, 1], value: Player.One },
 ]
 /**
  * testBoard diagonal upward to the right, starting form (x=0, y=0)
