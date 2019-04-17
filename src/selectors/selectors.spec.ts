@@ -59,6 +59,7 @@ describe('getColumn', () => {
     expect(getTestBoardColumn([2, 3])).toEqual(Fixture.testBoardColumn2Values)
     expect(getTestBoardColumn([6, 0])).toEqual([
       { point: [6, 0], value: Player.One },
+      { point: [6, 1], value: Player.One },
     ])
   })
 })
@@ -81,8 +82,8 @@ describe('getCellValue', () => {
       point: [0, 1],
       value: Player.Two,
     })
-    expect(getTestBoardCell([6, 1])).toEqual({
-      point: [6, 1],
+    expect(getTestBoardCell([6, 2])).toEqual({
+      point: [6, 2],
       value: undefined,
     })
   })
@@ -159,7 +160,7 @@ describe('getDiagonalValues', () => {
         { point: [1, 1], value: 1 },
         { point: [2, 2], value: 1 },
         { point: [3, 3], value: 1 },
-        { point: [4, 4], value: undefined },
+        { point: [4, 4], value: 2 },
         { point: [5, 5], value: undefined },
       ])
     )

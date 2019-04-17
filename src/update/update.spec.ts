@@ -26,6 +26,7 @@ describe('updateColumn', () => {
     expect(getColumnValues(updatedBoard)(point)).toEqual([
       { point: [6, 0], value: Player.One },
       { point: [6, 1], value: Player.One },
+      { point: [6, 2], value: Player.One },
     ])
   })
 })
