@@ -44,9 +44,9 @@ export const testBoard: Board = [
   [Player.One, Player.Two, Player.One, Player.Two],
   [Player.One, Player.One, Player.Two],
   [Player.One, Player.Two, Player.One, Player.One, Player.One, Player.One],
-  [Player.Two, Player.Two, Player.One, Player.One],
-  [Player.One, Player.Two, Player.Two],
-  [Player.Two, Player.Two],
+  [Player.Two, Player.Two, Player.One, Player.One, Player.Two, Player.Two],
+  [Player.One, Player.Two, Player.Two, Player.One],
+  [Player.Two, Player.Two, Player.One],
   [Player.One],
 ]
 
