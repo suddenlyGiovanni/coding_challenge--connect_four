@@ -2,23 +2,48 @@ import { X, Y, Point } from 'MyTypes'
 
 interface NewCoordinates {
   up: () => IterableIterator<Point>
+
+  _up: Point
+
   upRight: () => IterableIterator<Point>
+
+  _upRight: Point
+
   right: () => IterableIterator<Point>
+
+  _right: Point
+
   downRight: () => IterableIterator<Point>
+
+  _downRight: Point
+
   /**
    * walks the board diagonally down to the right to retrieve the coordinates
    * of the most down to the right cell available for the provided input
    */
   diagonallyDownRight: () => Point
+
   down: () => IterableIterator<Point>
+
+  _down: Point
+
   downLeft: () => IterableIterator<Point>
+
+  _downLeft: Point
+
   /**
    * walks the board diagonally down to the left to retrieve the coordinates
    * of the most down to the left cell available for the provided input
    */
   diagonallyDownLeft: () => Point
+
   left: () => IterableIterator<Point>
+
+  _left: Point
+
   upLeft: () => IterableIterator<Point>
+
+  _upLeft: Point
 }
 
 /**
@@ -88,25 +113,66 @@ export function move(point: Point): NewCoordinates {
   }
 
   return {
+    get _up() {
+      return this.up().next().value
+    },
+
     up: () => up(point),
+
+    get _upRight() {
+      return this.upRight().next().value
+    },
+
     upRight: () => upRight(point),
+
+    get _right(): Point {
+      return this.right().next().value
+    },
+
     right: () => right(point),
+
+    get _downRight(): Point {
+      return this.downRight().next().value
+    },
+
     downRight: () => downRight(point),
+
     diagonallyDownRight() {
       const { done, value } = this.downRight().next()
       return value !== undefined && done === false
         ? move(value).diagonallyDownRight()
         : point
     },
+
+    get _down(): Point {
+      return this.down().next().value
+    },
+
     down: () => down(point),
+
+    get _downLeft(): Point {
+      return this.downLeft().next().value
+    },
+
     downLeft: () => downLeft(point),
+
     diagonallyDownLeft() {
       const { done, value } = this.downLeft().next()
       return done === false && value !== undefined
         ? move(value).diagonallyDownLeft()
         : point
     },
+
+    get _left(): Point {
+      return this.left().next().value
+    },
+
     left: () => left(point),
+
+    get _upLeft(): Point {
+      return this.upLeft().next().value
+    },
+
     upLeft: () => upLeft(point),
   }
 }
