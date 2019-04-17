@@ -1,7 +1,7 @@
 import { Player } from './index'
 import * as Fixture from './fixture'
 
-import { makeBoard, isColumnFull, updateColumn, checkMainAxis } from './index'
+import { makeBoard, isColumnFull, updateColumn } from './index'
 
 describe('makeBoard', () => {
   it('returns an empty board', () => {
@@ -34,57 +34,3 @@ describe('updateColumn', () => {
     updateColumn(Player.One, Fixture.partiallyFilledColumn)
   })
 })
-
-describe('checkMainAxis', () => {
-  const checkPlayerOne = checkMainAxis(Player.One)
-  const checkPlayerTwo = checkMainAxis(Player.Two)
-  const checkPlayerOneTestBoard = checkPlayerOne(Fixture.testBoard)
-  const checkPlayerTwoTestBoard = checkPlayerTwo(Fixture.testBoard)
-
-  it('returns `null` if no match are found for the desired column', () => {
-    expect(
-      checkPlayerOneTestBoard({
-        axe: 'vertical',
-        coords: [0, 0], // old partially filled column, now testBoard column 0
-      })
-    ).toBe(null)
-  })
-
-  it('returns `null` if no match are found for the desired row', () => {
-    expect(
-      checkPlayerOneTestBoard({
-        axe: 'horizontal',
-        coords: [0, 0],
-      })
-    ).toBe(null)
-  })
-
-  it('returns `null` if provided with 4 non consecutive cells', () => {
-    expect(checkPlayerOneTestBoard({ axe: 'horizontal', coords: [0, 0] })).toBe(
-      null
-    )
-  })
-
-  it('returns an a 2d tuple containing the coordinates of the winning checkers on the vertical axe', () => {
-    expect(
-      checkPlayerOneTestBoard({
-        axe: 'vertical',
-        coords: [2, 0],
-      })
-    ).toEqual([[2, 2], [2, 3], [2, 4], [2, 5]])
-  })
-
-  it('returns an a 2d tuple containing the coordinates of the winning checkers on the horizontal axe', () => {
-    expect(
-      checkPlayerTwoTestBoard({ axe: 'horizontal', coords: [0, 1] })
-    ).toEqual([[2, 1], [3, 1], [4, 1], [5, 1]])
-  })
-})
-
-// describe('checkDiagonal', () => {
-//   const checkPlayerOne = checkDiagonal(Player.One)
-//   const checkPlayerOneTestBoard = checkPlayerOne(Fixture.testBoard)
-//   it('happyPath', () => {
-//     expect(checkPlayerOneTestBoard({ direction: 'upRight', coords: [0, 0] }))
-//   })
-// })
