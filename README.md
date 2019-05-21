@@ -31,3 +31,15 @@ Here are several ideas to make the game more interesting if you have the time
 4. Allow players at the beginning of the game to increase the number of columns on the board and the number of connected pieces that are required to win
 
 5. Allow a single player to play against the computer
+
+## Implementation (TODO)
+
+Instead being played in a browser it will be played on a terminal with a CLI.
+The initial implementation will only allow two human player.
+Eventually it will allow the player to play against the machine. (the machine will consciously and not in any random manner)
+
+### Challenges
+
+1. how to model the Player Grid (2d array???)
+2. how to model a game loop (series of turns -> state machine???)
+3. how to create the view layer in a terminal env?? ([ink](https://github.com/vadimdemedes/ink)?? )
