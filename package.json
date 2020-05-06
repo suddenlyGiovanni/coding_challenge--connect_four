@@ -18,7 +18,7 @@
     "@typescript-eslint/eslint-plugin": "^1.6.0",
     "@typescript-eslint/parser": "^1.6.0",
     "babel-preset-jest": "^24.6.0",
-    "commitizen": "^3.0.7",
+    "commitizen": "^4.1.2",
     "commitlint": "^7.5.2",
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.16.0",
